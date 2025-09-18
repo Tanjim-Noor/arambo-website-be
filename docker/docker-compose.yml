@@ -1,0 +1,67 @@
+services:
+  # Backend API service
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: arambo-backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - app.env
+    depends_on:
+      - redis
+    volumes:
+      - ../logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - arambo-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000/api/properties/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Redis service for caching
+  redis:
+    image: redis:7-alpine
+    container_name: arambo-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - arambo-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: redis-server --appendonly yes
+
+  # Redis Commander (optional - for Redis management UI)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: arambo-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - arambo-network
+    profiles:
+      - dev
+
+# Volumes
+volumes:
+  redis_data:
+    driver: local
+
+# Networks
+networks:
+  arambo-network:
+    driver: bridge
