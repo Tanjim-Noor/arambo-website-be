@@ -299,6 +299,7 @@ export class PropertyService {
       category: property.category,
       notes: property.notes || '',
       firstOwner: property.firstOwner,
+      lift: property.lift,
       paperworkUpdated: property.paperworkUpdated,
       onLoan: property.onLoan,
       createdAt: property.createdAt?.toISOString() || new Date().toISOString(),

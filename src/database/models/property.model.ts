@@ -20,6 +20,7 @@ export interface IProperty extends Document {
   onLoan: boolean;
   createdAt: Date;
   updatedAt: Date;
+  lift: boolean;
 }
 
 // Property schema definition
@@ -115,6 +116,10 @@ const PropertySchema = new Schema<IProperty>({
     type: Boolean,
     default: false,
     index: true
+  },
+  lift: { 
+    type: Boolean,
+    default: false,  // Set a default value (e.g., false for no lift)
   },
   paperworkUpdated: {
     type: Boolean,
