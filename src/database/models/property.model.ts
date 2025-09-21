@@ -21,6 +21,29 @@ export interface IProperty extends Document {
   createdAt: Date;
   updatedAt: Date;
   lift: boolean;
+  
+  // New fields
+  houseId?: string;
+  streetAddress?: string;
+  landmark?: string;
+  area?: string;
+  listingId?: string;
+  inventoryStatus?: string;
+  tenantType?: string;
+  propertyCategory?: string;
+  furnishingStatus?: string;
+  availableFrom?: Date;
+  floor?: number;
+  totalFloor?: number;
+  yearOfConstruction?: number;
+  rent?: number;
+  serviceCharge?: number;
+  advanceMonths?: number;
+  cleanHygieneScore?: number;
+  sunlightScore?: number;
+  bathroomConditionsScore?: number;
+  coverImage?: string;
+  otherImages?: string[];
 }
 
 // Property schema definition
@@ -129,6 +152,130 @@ const PropertySchema = new Schema<IProperty>({
     type: Boolean,
     default: false,
     index: true
+  },
+  
+  // New fields
+  houseId: {
+    type: String,
+    trim: true,
+    maxlength: [50, 'House ID must be less than 50 characters'],
+    index: true
+  },
+  streetAddress: {
+    type: String,
+    trim: true,
+    maxlength: [500, 'Street address must be less than 500 characters']
+  },
+  landmark: {
+    type: String,
+    trim: true,
+    maxlength: [300, 'Landmark must be less than 300 characters']
+  },
+  area: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'Area must be less than 200 characters'],
+    index: true
+  },
+  listingId: {
+    type: String,
+    trim: true,
+    maxlength: [50, 'Listing ID must be less than 50 characters'],
+    index: true
+  },
+  inventoryStatus: {
+    type: String,
+    trim: true,
+    enum: {
+      values: ['Looking for Rent', 'Looking for Sale', 'Looking for Lease', 'Available', 'Rented', 'Sold', 'Leased', 'Unavailable'],
+      message: 'Invalid inventory status'
+    }
+  },
+  tenantType: {
+    type: String,
+    trim: true,
+    enum: {
+      values: ['Family', 'Bachelor', 'Office', 'Commercial', 'Any'],
+      message: 'Invalid tenant type'
+    }
+  },
+  propertyCategory: {
+    type: String,
+    trim: true,
+    enum: {
+      values: ['Residential', 'Commercial', 'Industrial', 'Mixed'],
+      message: 'Invalid property category'
+    }
+  },
+  furnishingStatus: {
+    type: String,
+    trim: true,
+    enum: {
+      values: ['Furnished', 'Semi-Furnished', 'Non-Furnished'],
+      message: 'Invalid furnishing status'
+    }
+  },
+  availableFrom: {
+    type: Date
+  },
+  floor: {
+    type: Number,
+    min: [0, 'Floor cannot be negative'],
+    max: [200, 'Floor seems unrealistic']
+  },
+  totalFloor: {
+    type: Number,
+    min: [1, 'Total floor must be at least 1'],
+    max: [200, 'Total floor seems unrealistic']
+  },
+  yearOfConstruction: {
+    type: Number,
+    min: [1800, 'Year of construction seems too old'],
+    max: [new Date().getFullYear() + 5, 'Year of construction cannot be too far in future']
+  },
+  rent: {
+    type: Number,
+    min: [0, 'Rent cannot be negative'],
+    max: [10000000, 'Rent seems unrealistic']
+  },
+  serviceCharge: {
+    type: Number,
+    min: [0, 'Service charge cannot be negative'],
+    max: [1000000, 'Service charge seems unrealistic']
+  },
+  advanceMonths: {
+    type: Number,
+    min: [0, 'Advance months cannot be negative'],
+    max: [24, 'Advance months seems too high']
+  },
+  cleanHygieneScore: {
+    type: Number,
+    min: [1, 'Clean hygiene score must be between 1-10'],
+    max: [10, 'Clean hygiene score must be between 1-10']
+  },
+  sunlightScore: {
+    type: Number,
+    min: [1, 'Sunlight score must be between 1-10'],
+    max: [10, 'Sunlight score must be between 1-10']
+  },
+  bathroomConditionsScore: {
+    type: Number,
+    min: [1, 'Bathroom conditions score must be between 1-10'],
+    max: [10, 'Bathroom conditions score must be between 1-10']
+  },
+  coverImage: {
+    type: String,
+    trim: true,
+    maxlength: [500, 'Cover image URL must be less than 500 characters']
+  },
+  otherImages: {
+    type: [String],
+    validate: {
+      validator: function(images: string[]) {
+        return images.length <= 20; // Max 20 images
+      },
+      message: 'Cannot have more than 20 images'
+    }
   }
 }, {
   timestamps: true, // Automatically adds createdAt and updatedAt fields
@@ -160,16 +307,27 @@ PropertySchema.index({ bedrooms: 1, size: 1 });
 PropertySchema.index({ firstOwner: 1, onLoan: 1 });
 PropertySchema.index({ createdAt: -1 }); // For sorting by creation date
 PropertySchema.index({ email: 1, phone: 1 }); // Composite index for contact info
+PropertySchema.index({ area: 1, propertyCategory: 1 }); // New indexes
+PropertySchema.index({ inventoryStatus: 1, tenantType: 1 });
+PropertySchema.index({ rent: 1, bedrooms: 1 });
+PropertySchema.index({ houseId: 1 });
+PropertySchema.index({ listingId: 1 });
 
 // Text index for search functionality
 PropertySchema.index({
   propertyName: 'text',
   location: 'text',
-  notes: 'text'
+  notes: 'text',
+  streetAddress: 'text',
+  landmark: 'text',
+  area: 'text'
 }, {
   weights: {
     propertyName: 10,
+    streetAddress: 8,
     location: 5,
+    area: 5,
+    landmark: 3,
     notes: 1
   },
   name: 'property_text_index'

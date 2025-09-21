@@ -22,6 +22,39 @@ export const CategoryEnum = z.enum([
   'buy'
 ]);
 
+// New enums for the additional fields
+export const InventoryStatusEnum = z.enum([
+  'Looking for Rent',
+  'Looking for Sale', 
+  'Looking for Lease',
+  'Available',
+  'Rented',
+  'Sold',
+  'Leased',
+  'Unavailable'
+]);
+
+export const TenantTypeEnum = z.enum([
+  'Family',
+  'Bachelor', 
+  'Office',
+  'Commercial',
+  'Any'
+]);
+
+export const PropertyCategoryEnum = z.enum([
+  'Residential',
+  'Commercial',
+  'Industrial',
+  'Mixed'
+]);
+
+export const FurnishingStatusEnum = z.enum([
+  'Furnished',
+  'Semi-Furnished',
+  'Non-Furnished'
+]);
+
 // Base property schema with all required fields
 export const PropertySchema = z.object({
   name: z.string().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -40,6 +73,29 @@ export const PropertySchema = z.object({
   lift: z.boolean().default(false),
   paperworkUpdated: z.boolean().default(false),
   onLoan: z.boolean().default(false),
+  
+  // New optional fields
+  houseId: z.string().max(50, 'House ID must be less than 50 characters').optional(),
+  streetAddress: z.string().max(500, 'Street address must be less than 500 characters').optional(),
+  landmark: z.string().max(300, 'Landmark must be less than 300 characters').optional(),
+  area: z.string().max(200, 'Area must be less than 200 characters').optional(),
+  listingId: z.string().max(50, 'Listing ID must be less than 50 characters').optional(),
+  inventoryStatus: InventoryStatusEnum.optional(),
+  tenantType: TenantTypeEnum.optional(),
+  propertyCategory: PropertyCategoryEnum.optional(),
+  furnishingStatus: FurnishingStatusEnum.optional(),
+  availableFrom: z.coerce.date().optional(),
+  floor: z.number().min(0, 'Floor cannot be negative').max(200, 'Floor seems unrealistic').optional(),
+  totalFloor: z.number().min(1, 'Total floor must be at least 1').max(200, 'Total floor seems unrealistic').optional(),
+  yearOfConstruction: z.number().min(1800, 'Year of construction seems too old').max(new Date().getFullYear() + 5, 'Year of construction cannot be too far in future').optional(),
+  rent: z.number().min(0, 'Rent cannot be negative').max(10000000, 'Rent seems unrealistic').optional(),
+  serviceCharge: z.number().min(0, 'Service charge cannot be negative').max(1000000, 'Service charge seems unrealistic').optional(),
+  advanceMonths: z.number().min(0, 'Advance months cannot be negative').max(24, 'Advance months seems too high').optional(),
+  cleanHygieneScore: z.number().min(1, 'Clean hygiene score must be between 1-10').max(10, 'Clean hygiene score must be between 1-10').optional(),
+  sunlightScore: z.number().min(1, 'Sunlight score must be between 1-10').max(10, 'Sunlight score must be between 1-10').optional(),
+  bathroomConditionsScore: z.number().min(1, 'Bathroom conditions score must be between 1-10').max(10, 'Bathroom conditions score must be between 1-10').optional(),
+  coverImage: z.string().max(500, 'Cover image URL must be less than 500 characters').optional(),
+  otherImages: z.array(z.string()).max(20, 'Cannot have more than 20 images').optional(),
 });
 
 // Create property request schema (for POST requests)
@@ -58,6 +114,18 @@ export const PropertyFiltersSchema = z.object({
   location: z.string().optional(),
   firstOwner: z.string().transform((val) => val === 'true').optional(),
   onLoan: z.string().transform((val) => val === 'true').optional(),
+  
+  // New filter fields
+  area: z.string().optional(),
+  inventoryStatus: InventoryStatusEnum.optional(),
+  tenantType: TenantTypeEnum.optional(),
+  propertyCategory: PropertyCategoryEnum.optional(),
+  furnishingStatus: FurnishingStatusEnum.optional(),
+  minRent: z.string().transform((val) => parseInt(val, 10)).optional(),
+  maxRent: z.string().transform((val) => parseInt(val, 10)).optional(),
+  floor: z.string().transform((val) => parseInt(val, 10)).optional(),
+  houseId: z.string().optional(),
+  listingId: z.string().optional(),
 });
 
 // Response schemas
@@ -89,3 +157,7 @@ export type PropertiesListResponse = z.infer<typeof PropertiesListResponseSchema
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
 export type PropertyType = z.infer<typeof PropertyTypeEnum>;
 export type Category = z.infer<typeof CategoryEnum>;
+export type InventoryStatus = z.infer<typeof InventoryStatusEnum>;
+export type TenantType = z.infer<typeof TenantTypeEnum>;
+export type PropertyCategory = z.infer<typeof PropertyCategoryEnum>;
+export type FurnishingStatus = z.infer<typeof FurnishingStatusEnum>;

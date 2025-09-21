@@ -13,7 +13,12 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "seed": "ts-node src/database/seeds/property.seed.ts",
     "db:seed": "npm run seed",
-    "migrate:create": "migrate-mongo create"
+    "db:reset": "ts-node src/database/scripts/reset-database.ts",
+    "db:reset:seed": "ts-node src/database/scripts/reset-database.ts seed",
+    "migrate:create": "migrate-mongo create",
+    "migrate:up": "migrate-mongo up",
+    "migrate:down": "migrate-mongo down",
+    "migrate:status": "migrate-mongo status"
   },
   "keywords": [
     "nodejs",
