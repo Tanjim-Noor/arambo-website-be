@@ -21,6 +21,7 @@ const sampleProperties = [
     firstOwner: true,
     paperworkUpdated: true,
     onLoan: false,
+    lift: true,
   },
   {
     name: 'Jane Smith',
@@ -38,6 +39,7 @@ const sampleProperties = [
     firstOwner: false,
     paperworkUpdated: true,
     onLoan: false,
+    lift: false,
   },
   {
     name: 'Mike Johnson',
@@ -55,6 +57,7 @@ const sampleProperties = [
     firstOwner: true,
     paperworkUpdated: true,
     onLoan: false,
+    lift: true,
   },
   {
     name: 'Sarah Wilson',
@@ -72,6 +75,7 @@ const sampleProperties = [
     firstOwner: false,
     paperworkUpdated: false,
     onLoan: true,
+    lift: true,
   },
   {
     name: 'David Brown',
@@ -89,6 +93,7 @@ const sampleProperties = [
     firstOwner: true,
     paperworkUpdated: true,
     onLoan: false,
+    lift: true,
   },
 ];
 
