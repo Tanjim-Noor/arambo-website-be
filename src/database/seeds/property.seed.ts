@@ -22,6 +22,31 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: true,
+    // New fields
+    houseId: 'A-01',
+    streetAddress: 'Downtown, City Center, Metropolitan Area',
+    landmark: 'Near Central Mall',
+    area: 'Downtown & City Center',
+    listingId: 'RE-SALE-1',
+    inventoryStatus: 'Looking for Sale',
+    tenantType: 'Family',
+    propertyCategory: 'Residential',
+    furnishingStatus: 'Furnished',
+    availableFrom: new Date('2025-01-01'),
+    floor: 5,
+    totalFloor: 10,
+    yearOfConstruction: 2020,
+    rent: 0, // Not applicable for sale
+    serviceCharge: 0,
+    advanceMonths: 0,
+    cleanHygieneScore: 9,
+    sunlightScore: 8,
+    bathroomConditionsScore: 9,
+    coverImage: 'https://example.com/images/luxury-apartment-cover.jpg',
+    otherImages: [
+      'https://example.com/images/luxury-apartment-1.jpg',
+      'https://example.com/images/luxury-apartment-2.jpg'
+    ]
   },
   {
     name: 'Jane Smith',
@@ -40,6 +65,32 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: false,
+    // New fields
+    houseId: 'H-05',
+    streetAddress: 'Green Valley, Suburban District',
+    landmark: 'Opposite Green Park',
+    area: 'Green Valley & Suburbs',
+    listingId: 'RE-RENT-2',
+    inventoryStatus: 'Looking for Rent',
+    tenantType: 'Family',
+    propertyCategory: 'Residential',
+    furnishingStatus: 'Semi-Furnished',
+    availableFrom: new Date('2025-02-01'),
+    floor: 0, // Ground floor
+    totalFloor: 2,
+    yearOfConstruction: 2018,
+    rent: 25000,
+    serviceCharge: 3000,
+    advanceMonths: 2,
+    cleanHygieneScore: 8,
+    sunlightScore: 9,
+    bathroomConditionsScore: 8,
+    coverImage: 'https://example.com/images/family-house-cover.jpg',
+    otherImages: [
+      'https://example.com/images/family-house-1.jpg',
+      'https://example.com/images/family-house-2.jpg',
+      'https://example.com/images/family-house-garden.jpg'
+    ]
   },
   {
     name: 'Mike Johnson',
@@ -58,6 +109,32 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: true,
+    // New fields
+    houseId: 'V-12',
+    streetAddress: 'Hillside Premium District, Elite Avenue',
+    landmark: 'Near Premium Club',
+    area: 'Hillside & Premium District',
+    listingId: 'RE-SALE-3',
+    inventoryStatus: 'Looking for Sale',
+    tenantType: 'Family',
+    propertyCategory: 'Residential',
+    furnishingStatus: 'Furnished',
+    availableFrom: new Date('2025-03-01'),
+    floor: 0, // Ground floor villa
+    totalFloor: 3,
+    yearOfConstruction: 2022,
+    rent: 0,
+    serviceCharge: 0,
+    advanceMonths: 0,
+    cleanHygieneScore: 10,
+    sunlightScore: 10,
+    bathroomConditionsScore: 10,
+    coverImage: 'https://example.com/images/luxury-villa-cover.jpg',
+    otherImages: [
+      'https://example.com/images/luxury-villa-pool.jpg',
+      'https://example.com/images/luxury-villa-interior.jpg',
+      'https://example.com/images/luxury-villa-garden.jpg'
+    ]
   },
   {
     name: 'Sarah Wilson',
@@ -76,6 +153,30 @@ const sampleProperties = [
     paperworkUpdated: false,
     onLoan: true,
     lift: true,
+    // New fields
+    houseId: 'S-08',
+    streetAddress: 'Business District, Corporate Avenue',
+    landmark: 'Next to Metro Station',
+    area: 'Business District',
+    listingId: 'RE-RENT-4',
+    inventoryStatus: 'Looking for Rent',
+    tenantType: 'Bachelor',
+    propertyCategory: 'Residential',
+    furnishingStatus: 'Furnished',
+    availableFrom: new Date('2025-01-15'),
+    floor: 8,
+    totalFloor: 15,
+    yearOfConstruction: 2021,
+    rent: 18000,
+    serviceCharge: 2500,
+    advanceMonths: 3,
+    cleanHygieneScore: 7,
+    sunlightScore: 6,
+    bathroomConditionsScore: 8,
+    coverImage: 'https://example.com/images/studio-apartment-cover.jpg',
+    otherImages: [
+      'https://example.com/images/studio-apartment-interior.jpg'
+    ]
   },
   {
     name: 'David Brown',
@@ -94,6 +195,31 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: true,
+    // New fields
+    houseId: 'C-15',
+    streetAddress: 'Business Park Zone A, Tech Boulevard',
+    landmark: 'Opposite IT Tower',
+    area: 'Business Park Zone A',
+    listingId: 'RE-LEASE-5',
+    inventoryStatus: 'Looking for Lease',
+    tenantType: 'Office',
+    propertyCategory: 'Commercial',
+    furnishingStatus: 'Non-Furnished',
+    availableFrom: new Date('2025-04-01'),
+    floor: 3,
+    totalFloor: 8,
+    yearOfConstruction: 2019,
+    rent: 80000,
+    serviceCharge: 15000,
+    advanceMonths: 6,
+    cleanHygieneScore: 9,
+    sunlightScore: 8,
+    bathroomConditionsScore: 9,
+    coverImage: 'https://example.com/images/office-space-cover.jpg',
+    otherImages: [
+      'https://example.com/images/office-space-interior.jpg',
+      'https://example.com/images/office-space-parking.jpg'
+    ]
   },
 ];
 
