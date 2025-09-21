@@ -150,10 +150,10 @@ npm run dev
 ```bash
 # Run everything with Docker
 cd docker
-docker-compose up --build
+docker compose up -d
 
 # Or with development tools (MongoDB Express + Redis Commander):
-docker-compose --profile dev up --build
+#docker-compose --profile dev up --build
 ```
 
 **Docker includes:**
