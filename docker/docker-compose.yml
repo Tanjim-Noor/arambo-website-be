@@ -1,64 +1,51 @@
 services:
-  # Backend API service
-  backend:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    container_name: arambo-backend
-    ports:
-      - "4000:4000"
-    env_file:
-      - app.env
-    depends_on:
-      - redis
-    volumes:
-      - ../logs:/app/logs
+  # MongoDB database service
+  mongodb:
+    image: mongo:7.0
+    container_name: arambo-mongodb
     restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: arambo_properties
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
     networks:
       - arambo-network
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000/api/properties/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
-  # Redis service for caching
-  redis:
-    image: redis:7-alpine
-    container_name: arambo-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
+  # MongoDB Express (optional UI)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: arambo-mongo-express
     restart: unless-stopped
-    networks:
-      - arambo-network
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    command: redis-server --appendonly yes
-
-  # Redis Commander (optional - for Redis management UI)
-  redis-commander:
-    image: rediscommander/redis-commander:latest
-    container_name: arambo-redis-commander
-    environment:
-      - REDIS_HOSTS=local:redis:6379
     ports:
-      - "8081:8081"
+      - "8082:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: password
     depends_on:
-      - redis
+      - mongodb
     networks:
       - arambo-network
-    profiles:
-      - dev
 
 # Volumes
 volumes:
-  redis_data:
+  mongodb_data:
+    driver: local
+  mongodb_config:
     driver: local
 
 # Networks

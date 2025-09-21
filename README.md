@@ -1,18 +1,26 @@
 # Arambo Website Backend
 
-A modern Node.js + Express + TypeScript backend API for property listings with Notion integration.
+A modern Node.js + Express + TypeScript backend API for property listings with MongoDB integration.
 
 ## 🏗️ Architecture
 
 ```
 backend/
 ├── src/
+│   ├── database/            # Database configuration and models
+│   │   ├── config/          # MongoDB connection setup
+│   │   │   └── connection.ts
+│   │   ├── models/          # Mongoose schemas and models
+│   │   │   └── property.model.ts
+│   │   ├── seeds/           # Database seeding utilities
+│   │   │   └── property.seed.ts
+│   │   └── index.ts         # Database exports
 │   ├── routes/              # API route definitions
 │   │   └── property.routes.ts
 │   ├── controllers/         # Request handlers
 │   │   └── property.controller.ts
 │   ├── services/            # Business logic & integrations
-│   │   └── notion.service.ts
+│   │   └── property.service.ts
 │   ├── validators/          # Zod schemas for input validation
 │   │   └── property.validator.ts
 │   ├── middlewares/         # Error handling, etc.
@@ -35,15 +43,15 @@ backend/
 ### Prerequisites
 
 - Node.js 16+ and npm 8+
-- Docker and Docker Compose (optional)
-- Notion account with integration token
+- MongoDB 5.0+ (local installation or Docker)
+- Docker and Docker Compose (optional but recommended)
 
 ### 1. Clone and Setup
 
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd arambo-website-be/backend
+cd arambo-website-be
 
 # Install dependencies
 npm install
@@ -54,60 +62,85 @@ cp .env.example .env
 
 ### 2. Configure Environment
 
-Edit `.env` file with your actual values:
+Edit `.env` file with your MongoDB connection string:
 
 ```env
 NODE_ENV=development
 PORT=4000
 
-# Get these from your Notion integration
-NOTION_TOKEN=your_notion_integration_token_here
-NOTION_DATABASE_ID=your_notion_database_id_here
+# MongoDB Connection
+MONGODB_URI=mongodb://localhost:27017/arambo_properties_dev
 
 REDIS_URL=redis://localhost:6379
 CORS_ORIGIN=http://localhost:3000
 ```
 
-### 3. Notion Setup
+### 3. MongoDB Setup
 
-1. **Create a Notion Integration:**
-   - Go to https://www.notion.so/my-integrations
-   - Click "New integration"
-   - Give it a name (e.g., "Arambo Property API")
-   - Copy the "Internal Integration Token"
+Choose one of the following options:
 
-2. **Create a Notion Database:**
-   - Create a new page in Notion
-   - Add a database with these properties:
-     - `Name` (Title)
-     - `Email` (Email)
-     - `Phone` (Phone)
-     - `PropertyName` (Text)
-     - `PropertyType` (Select: Apartment, House, Villa, etc.)
-     - `Size` (Number)
-     - `Location` (Text)
-     - `Bedrooms` (Number)
-     - `Bathroom` (Number)
-     - `Baranda` (Checkbox)
-     - `Category` (Select: Sale, Rent, Lease, Buy)
-     - `Notes` (Text)
-     - `FirstOwner` (Checkbox)
-     - `PaperworkUpdated` (Checkbox)
-     - `OnLoan` (Checkbox)
+#### Option A: Local MongoDB Installation
 
-3. **Share Database with Integration:**
-   - Click "Share" on your database
-   - Invite your integration
-   - Copy the database ID from the URL
+1. **Install MongoDB:**
+   - **Windows:** Download from https://www.mongodb.com/try/download/community
+   - **macOS:** `brew install mongodb-community`
+   - **Linux:** Follow official docs for your distribution
 
-### 4. Run the Application
+2. **Start MongoDB:**
+   ```bash
+   # Windows (if installed as service)
+   net start MongoDB
+   
+   # macOS/Linux
+   mongod --dbpath /path/to/your/data/directory
+   
+   # Or if installed via brew (macOS)
+   brew services start mongodb-community
+   ```
+
+3. **Verify Connection:**
+   ```bash
+   mongosh mongodb://localhost:27017/arambo_properties_dev
+   ```
+
+#### Option B: MongoDB Docker Container
+
+```bash
+# Run MongoDB in Docker
+docker run -d \
+  --name arambo-mongodb \
+  -p 27017:27017 \
+  -e MONGO_INITDB_DATABASE=arambo_properties_dev \
+  -v mongodb_data:/data/db \
+  mongo:7.0
+
+# Verify connection
+docker exec -it arambo-mongodb mongosh arambo_properties_dev
+```
+
+#### Option C: MongoDB Atlas (Cloud)
+
+1. Create a free account at https://www.mongodb.com/cloud/atlas
+2. Create a new cluster
+3. Get your connection string
+4. Update your `.env` file:
+   ```env
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/arambo_properties?retryWrites=true&w=majority
+   ```
+
+### 4. Seed the Database (Optional)
+
+```bash
+# Add sample data to your database
+npm run seed
+```
+
+### 5. Run the Application
 
 #### Option A: Local Development
 
 ```bash
-# Start Redis (if not using Docker)
-# Install Redis: https://redis.io/download
-
+# Make sure MongoDB is running locally
 # Start development server
 npm run dev
 ```
@@ -115,13 +148,54 @@ npm run dev
 #### Option B: Docker Compose (Recommended)
 
 ```bash
-# Update docker/app.env with your Notion credentials
-# Then run:
+# Run everything with Docker
 cd docker
 docker-compose up --build
 
-# Or with Redis Commander UI:
+# Or with development tools (MongoDB Express + Redis Commander):
 docker-compose --profile dev up --build
+```
+
+**Docker includes:**
+- 🚀 Backend API (port 4000)
+- 🍃 MongoDB (port 27017)
+- 🔴 Redis (port 6379)
+- 🌐 MongoDB Express - Database UI (port 8082) *dev profile only*
+- 🔧 Redis Commander - Cache UI (port 8081) *dev profile only*
+
+## 🗄️ Database Management
+
+### MongoDB Commands
+
+```bash
+# Connect to database
+mongosh mongodb://localhost:27017/arambo_properties_dev
+
+# View collections
+show collections
+
+# View properties
+db.properties.find().pretty()
+
+# Count documents
+db.properties.countDocuments()
+
+# Create index for text search
+db.properties.createIndex({ 
+  "propertyName": "text", 
+  "location": "text", 
+  "notes": "text" 
+})
+```
+
+### Database Seeding
+
+```bash
+# Seed with sample data
+npm run seed
+
+# Or use the service directly
+npm run db:seed
 ```
 
 ## 📡 API Endpoints
@@ -227,9 +301,10 @@ npm run lint:fix   # Fix linting issues
 
 ### Code Structure
 
+- **Database** (`/database`): MongoDB models, connection config, seeds
 - **Routes** (`/routes`): Define API endpoints and route parameters
 - **Controllers** (`/controllers`): Handle HTTP requests/responses, validate input
-- **Services** (`/services`): Business logic, external API calls (Notion)
+- **Services** (`/services`): Business logic, database operations
 - **Validators** (`/validators`): Zod schemas for type-safe validation
 - **Middlewares** (`/middlewares`): Error handling, logging, authentication
 - **Config** (`/config`): Environment variables and app configuration
@@ -237,10 +312,11 @@ npm run lint:fix   # Fix linting issues
 ### Adding New Features
 
 1. **Add Zod Schema** in `/validators`
-2. **Create Service Function** in `/services`
-3. **Implement Controller** in `/controllers`
-4. **Define Routes** in `/routes`
-5. **Add Tests** in `/tests`
+2. **Create Mongoose Model** in `/database/models`
+3. **Create Service Function** in `/services`
+4. **Implement Controller** in `/controllers`
+5. **Define Routes** in `/routes`
+6. **Add Tests** in `/tests`
 
 ## 🐳 Docker Usage
 
@@ -277,8 +353,7 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 |----------|-------------|----------|---------|
 | `NODE_ENV` | Environment mode | No | `development` |
 | `PORT` | Server port | No | `4000` |
-| `NOTION_TOKEN` | Notion integration token | Yes | - |
-| `NOTION_DATABASE_ID` | Notion database ID | Yes | - |
+| `MONGODB_URI` | MongoDB connection string | Yes | - |
 | `REDIS_URL` | Redis connection URL | No | `redis://localhost:6379` |
 | `CORS_ORIGIN` | Allowed CORS origins | No | `*` |
 
@@ -300,6 +375,9 @@ curl http://localhost:4000/api/properties/health
 ### Redis Commander (Development)
 Access Redis UI at: http://localhost:8081
 
+### MongoDB Express (Development)
+Access MongoDB UI at: http://localhost:8082
+
 ### Logs
 ```bash
 # Docker logs
@@ -313,15 +391,24 @@ tail -f logs/app.log
 
 ### Common Issues
 
-1. **Notion API Errors**
+1. **MongoDB Connection Errors**
    ```
-   Error: Notion API Error - Check your NOTION_TOKEN and NOTION_DATABASE_ID
+   Error: Failed to connect to MongoDB
    ```
-   - Verify integration token
-   - Ensure database is shared with integration
-   - Check database property names match expected schema
+   - Verify MONGODB_URI in environment
+   - Ensure MongoDB is running locally or accessible
+   - Check network connectivity for cloud databases
+   - Verify authentication credentials
 
-2. **Redis Connection Issues**
+2. **Database Validation Errors**
+   ```
+   ValidationError: Property validation failed
+   ```
+   - Check required fields in request body
+   - Verify data types match schema
+   - Review Mongoose model validation rules
+
+3. **Redis Connection Issues**
    ```
    Error: Redis connection refused
    ```
@@ -329,19 +416,30 @@ tail -f logs/app.log
    - Check REDIS_URL in environment
    - Ensure Redis container is running in Docker
 
-3. **Port Already in Use**
+4. **Port Already in Use**
    ```
    Error: listen EADDRINUSE :::4000
    ```
    - Change PORT in `.env`
    - Kill process using port: `lsof -ti:4000 | xargs kill`
 
-4. **TypeScript Compilation Errors**
+5. **TypeScript Compilation Errors**
    ```bash
    # Clear and rebuild
    rm -rf dist node_modules
    npm install
    npm run build
+   ```
+
+6. **Docker Issues**
+   ```bash
+   # Rebuild containers
+   docker-compose down
+   docker-compose up --build
+
+   # Clear volumes if database issues persist
+   docker-compose down -v
+   docker-compose up --build
    ```
 
 ### Debug Mode

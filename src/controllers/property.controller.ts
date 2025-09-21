@@ -2,17 +2,19 @@ import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 import {
   CreatePropertyRequestSchema,
+  UpdatePropertyRequestSchema,
   PropertyFiltersSchema,
   PropertyResponse,
   PropertiesListResponse,
   ErrorResponse,
+  Property as PropertyType,
 } from '../validators/property.validator';
 import {
   createListing,
   queryListings,
   getListingById,
   updateListing,
-} from '../services/notion.service';
+} from '../services/property.service';
 
 // Create a new property listing
 export const createProperty = async (
@@ -24,7 +26,7 @@ export const createProperty = async (
     // Validate request body
     const validatedData = CreatePropertyRequestSchema.parse(req.body);
 
-    // Create listing in Notion
+    // Create listing in database
     const property = await createListing(validatedData);
 
     res.status(201).json(property);
@@ -33,7 +35,7 @@ export const createProperty = async (
       res.status(400).json({
         error: 'Validation Error',
         message: 'Invalid request data',
-        details: error.errors.map(err => ({
+        details: error.issues.map((err: any) => ({
           field: err.path.join('.'),
           message: err.message,
         })),
@@ -73,7 +75,7 @@ export const getProperties = async (
       res.status(400).json({
         error: 'Validation Error',
         message: 'Invalid query parameters',
-        details: error.errors.map(err => ({
+        details: error.issues.map((err: any) => ({
           field: err.path.join('.'),
           message: err.message,
         })),
@@ -144,10 +146,15 @@ export const updateProperty = async (
     }
 
     // Validate request body (partial validation for updates)
-    const validatedData = CreatePropertyRequestSchema.partial().parse(req.body);
+    const validatedData = UpdatePropertyRequestSchema.parse(req.body);
+
+    // Filter out undefined values to satisfy exactOptionalPropertyTypes
+    const updateData: Partial<PropertyType> = Object.fromEntries(
+      Object.entries(validatedData).filter(([_, value]) => value !== undefined)
+    ) as Partial<PropertyType>;
 
     // Update listing in Notion
-    const property = await updateListing(id, validatedData);
+    const property = await updateListing(id, updateData);
 
     res.status(200).json(property);
   } catch (error) {
@@ -155,7 +162,7 @@ export const updateProperty = async (
       res.status(400).json({
         error: 'Validation Error',
         message: 'Invalid request data',
-        details: error.errors.map(err => ({
+        details: error.issues.map((err: any) => ({
           field: err.path.join('.'),
           message: err.message,
         })),

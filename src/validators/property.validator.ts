@@ -37,12 +37,16 @@ export const PropertySchema = z.object({
   category: CategoryEnum,
   notes: z.string().max(1000, 'Notes must be less than 1000 characters').optional(),
   firstOwner: z.boolean().default(false),
+  lift: z.boolean().default(false),
   paperworkUpdated: z.boolean().default(false),
   onLoan: z.boolean().default(false),
 });
 
 // Create property request schema (for POST requests)
 export const CreatePropertyRequestSchema = PropertySchema;
+
+// Update property request schema (for PATCH requests) - all fields optional
+export const UpdatePropertyRequestSchema = PropertySchema.partial();
 
 // Query filters schema (for GET requests)
 export const PropertyFiltersSchema = z.object({
@@ -78,6 +82,7 @@ export const ErrorResponseSchema = z.object({
 // Type exports for use in other files
 export type Property = z.infer<typeof PropertySchema>;
 export type CreatePropertyRequest = z.infer<typeof CreatePropertyRequestSchema>;
+export type UpdatePropertyRequest = z.infer<typeof UpdatePropertyRequestSchema>;
 export type PropertyFilters = z.infer<typeof PropertyFiltersSchema>;
 export type PropertyResponse = z.infer<typeof PropertyResponseSchema>;
 export type PropertiesListResponse = z.infer<typeof PropertiesListResponseSchema>;
