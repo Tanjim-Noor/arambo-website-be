@@ -16,7 +16,7 @@ export const errorHandler = (
     res.status(400).json({
       error: 'Validation Error',
       message: 'Invalid request data',
-      details: error.errors.map(err => ({
+      details: error.issues.map((err: any) => ({
         field: err.path.join('.'),
         message: err.message,
       })),

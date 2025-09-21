@@ -1,15 +1,31 @@
 import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
 import { z } from 'zod';
 
-// Load environment variables
-dotenv.config();
+// Load and expand environment variables
+const myEnv = dotenv.config();
+dotenvExpand.expand(myEnv);
 
 // Define the schema for environment variables
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  PORT: z.string().transform((val) => parseInt(val, 10)).default('4000'),
-  NOTION_TOKEN: z.string().min(1, 'Notion token is required'),
-  NOTION_DATABASE_ID: z.string().min(1, 'Notion database ID is required'),
+
+  PORT: z.preprocess(
+    (val) => Number(val),
+    z.number().default(4000)
+  ),
+
+  // Local Docker MongoDB URI
+  MONGODB_LOCAL_URI: z.string().default(
+    'mongodb://admin:password@localhost:27017/arambo_properties?authSource=admin'
+  ),
+
+  // Atlas MongoDB URI
+  MONGODB_ATLAS_URI: z.string().optional(),
+
+  // Explicit override (optional)
+  MONGODB_URI: z.string().optional(),
+
   REDIS_URL: z.string().optional().default('redis://localhost:6379'),
   CORS_ORIGIN: z.string().optional().default('*'),
 });
@@ -17,10 +33,29 @@ const envSchema = z.object({
 // Parse and validate environment variables
 const parseEnv = () => {
   try {
-    return envSchema.parse(process.env);
+    const env = envSchema.parse(process.env);
+
+    // Resolve final MongoDB URI:
+    // 1. Use explicit MONGODB_URI if set
+    // 2. Else use Atlas in production
+    // 3. Else use local Docker Mongo in dev/test
+    const finalMongoUri =
+      env.MONGODB_URI ||
+      (env.NODE_ENV === 'production' ? env.MONGODB_ATLAS_URI : env.MONGODB_LOCAL_URI);
+
+    if (!finalMongoUri) {
+      throw new Error(
+        '❌ No valid MongoDB URI found. Please set MONGODB_URI, or MONGODB_LOCAL_URI / MONGODB_ATLAS_URI.'
+      );
+    }
+
+    return {
+      ...env,
+      MONGODB_URI: finalMongoUri,
+    };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const missingVars = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+      const missingVars = error.issues.map((err) => `${err.path.join('.')}: ${err.message}`);
       throw new Error(`Environment validation failed:\n${missingVars.join('\n')}`);
     }
     throw error;
@@ -30,17 +65,12 @@ const parseEnv = () => {
 export const config = parseEnv();
 
 // Type for the config object
-export type Config = z.infer<typeof envSchema>;
+export type Config = z.infer<typeof envSchema> & {
+  MONGODB_URI: string; // resolved URI is guaranteed
+};
 
 // Export individual config values for convenience
-export const {
-  NODE_ENV,
-  PORT,
-  NOTION_TOKEN,
-  NOTION_DATABASE_ID,
-  REDIS_URL,
-  CORS_ORIGIN,
-} = config;
+export const { NODE_ENV, PORT, MONGODB_URI, REDIS_URL, CORS_ORIGIN } = config;
 
 // Helper functions
 export const isDevelopment = () => NODE_ENV === 'development';

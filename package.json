@@ -1,7 +1,7 @@
 {
   "name": "arambo-website-be",
   "version": "1.0.0",
-  "description": "Backend API for Arambo Website - Property listings with Notion integration",
+  "description": "Backend API for Arambo Website - Property listings with MongoDB integration",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
@@ -10,27 +10,33 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "seed": "ts-node src/database/seeds/property.seed.ts",
+    "db:seed": "npm run seed"
   },
   "keywords": [
     "nodejs",
     "express",
     "typescript",
-    "notion",
+    "mongodb",
+    "mongoose",
     "property",
     "api"
   ],
   "author": "Arambo Team",
   "license": "MIT",
   "dependencies": {
-    "@notionhq/client": "^2.2.15",
+    "@types/mongoose": "^5.11.96",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
+    "dotenv-expand": "^12.0.3",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "i": "^0.3.7",
+    "mongoose": "^8.18.1",
     "morgan": "^1.10.1",
     "redis": "^5.8.2",
+    "tslib": "^2.8.1",
     "zod": "^4.1.9"
   },
   "devDependencies": {
@@ -44,6 +50,7 @@
     "@typescript-eslint/parser": "^8.44.0",
     "eslint": "^9.35.0",
     "jest": "^30.1.3",
+    "mongodb-memory-server": "^10.2.1",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.3",
     "ts-node-dev": "^2.0.0",

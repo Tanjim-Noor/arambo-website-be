@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { PORT, CORS_ORIGIN, isDevelopment } from './config';
+import { connectToDatabase } from './database';
 import propertyRoutes from './routes/property.routes';
 import { errorHandler, notFoundHandler, requestLogger } from './middlewares/error.middleware';
 
@@ -84,19 +85,24 @@ app.use(errorHandler);
 // Start server
 const startServer = async () => {
   try {
+    // Connect to MongoDB
+    console.log('🔗 Connecting to MongoDB...');
+    await connectToDatabase();
+    console.log('✅ MongoDB connection established');
+
     app.listen(PORT, () => {
-      console.log(` Server running on port ${PORT}`);
-      console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(` CORS enabled for: ${CORS_ORIGIN}`);
-      console.log(` API endpoints available at http://localhost:${PORT}/api`);
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🔗 CORS enabled for: ${CORS_ORIGIN}`);
+      console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
       
       if (isDevelopment()) {
-        console.log(` Development mode - detailed logging enabled`);
-        console.log(` API documentation: http://localhost:${PORT}/`);
+        console.log(`🔧 Development mode - detailed logging enabled`);
+        console.log(`📖 API documentation: http://localhost:${PORT}/`);
       }
     });
   } catch (error) {
-    console.error(' Failed to start server:', error);
+    console.error('❌ Failed to start server:', error);
     process.exit(1);
   }
 };
