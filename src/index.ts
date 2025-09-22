@@ -44,7 +44,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // API routes
-app.use('/api/properties', propertyRoutes);
+app.use('/properties', propertyRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -53,13 +53,13 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     status: 'running',
     endpoints: {
-      health: '/api/properties/health',
+      health: '/properties/health',
       properties: {
-        create: 'POST /api/properties',
-        list: 'GET /api/properties',
-        getById: 'GET /api/properties/:id',
-        update: 'PUT /api/properties/:id',
-        stats: 'GET /api/properties/stats',
+        create: 'POST /properties',
+        list: 'GET /properties',
+        getById: 'GET /properties/:id',
+        update: 'PUT /properties/:id',
+        stats: 'GET /properties/stats',
       },
     },
     documentation: 'See README.md for detailed API documentation',
