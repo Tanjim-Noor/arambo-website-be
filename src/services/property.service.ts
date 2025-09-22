@@ -1,5 +1,6 @@
 import { Property, IProperty } from '../database/models/property.model';
-import { Property as PropertyType, PropertyFilters, PropertyResponse } from '../validators/property.validator';
+import { Property as PropertyType, PropertyFilters, PropertyResponse, PaginationMeta } from '../validators/property.validator';
+import { PAGINATION } from '../config/constant';
 import { FilterQuery, SortOrder } from 'mongoose';
 
 /**
@@ -34,8 +35,14 @@ export class PropertyService {
   static async queryListings(filters: PropertyFilters): Promise<{
     properties: PropertyResponse[];
     total: number;
+    pagination: PaginationMeta;
   }> {
     try {
+      // Extract pagination parameters
+      const page = filters.page || PAGINATION.DEFAULT_PAGE;
+      const limit = filters.limit || PAGINATION.DEFAULT_LIMIT;
+      const skip = (page - 1) * limit;
+
       // Build MongoDB filter query
       const query: FilterQuery<IProperty> = {};
 
@@ -73,6 +80,66 @@ export class PropertyService {
         };
       }
 
+      // Area filter (case-insensitive partial match)
+      if (filters.area) {
+        query.area = { 
+          $regex: filters.area, 
+          $options: 'i' 
+        };
+      }
+
+      // Inventory status filter
+      if (filters.inventoryStatus) {
+        query.inventoryStatus = filters.inventoryStatus;
+      }
+
+      // Tenant type filter
+      if (filters.tenantType) {
+        query.tenantType = filters.tenantType;
+      }
+
+      // Property category filter
+      if (filters.propertyCategory) {
+        query.propertyCategory = filters.propertyCategory;
+      }
+
+      // Furnishing status filter
+      if (filters.furnishingStatus) {
+        query.furnishingStatus = filters.furnishingStatus;
+      }
+
+      // Rent range filters
+      if (filters.minRent !== undefined || filters.maxRent !== undefined) {
+        query.rent = {};
+        if (filters.minRent !== undefined) {
+          query.rent.$gte = filters.minRent;
+        }
+        if (filters.maxRent !== undefined) {
+          query.rent.$lte = filters.maxRent;
+        }
+      }
+
+      // Floor filter
+      if (filters.floor !== undefined) {
+        query.floor = filters.floor;
+      }
+
+      // House ID filter
+      if (filters.houseId) {
+        query.houseId = { 
+          $regex: filters.houseId, 
+          $options: 'i' 
+        };
+      }
+
+      // Listing ID filter
+      if (filters.listingId) {
+        query.listingId = { 
+          $regex: filters.listingId, 
+          $options: 'i' 
+        };
+      }
+
       // First owner filter
       if (filters.firstOwner !== undefined) {
         query.firstOwner = filters.firstOwner;
@@ -84,20 +151,42 @@ export class PropertyService {
       }
 
       console.log('MongoDB query filters:', JSON.stringify(query, null, 2));
+      console.log('Pagination:', { page, limit, skip });
 
-      // Execute query with sorting
+      // Get total count for pagination
+      const totalItems = await Property.countDocuments(query);
+
+      // Execute paginated query with sorting
       const properties = await Property.find(query)
         .sort({ createdAt: -1 as SortOrder })
-        .limit(100) // Limit results to prevent overwhelming responses
+        .skip(skip)
+        .limit(limit)
         .lean()
         .exec();
+
+      // Calculate pagination metadata
+      const totalPages = Math.ceil(totalItems / limit);
+      const hasNextPage = page < totalPages;
+      const hasPrevPage = page > 1;
+
+      const pagination: PaginationMeta = {
+        currentPage: page,
+        limit,
+        totalItems,
+        totalPages,
+        hasNextPage,
+        hasPrevPage,
+        nextPage: hasNextPage ? page + 1 : undefined,
+        prevPage: hasPrevPage ? page - 1 : undefined,
+      };
 
       // Convert to response format
       const responseProperties = properties.map(property => this.convertToResponse(property));
 
       return {
         properties: responseProperties,
-        total: responseProperties.length,
+        total: totalItems, // For backward compatibility
+        pagination,
       };
     } catch (error) {
       console.error('Error querying property listings:', error);
@@ -302,6 +391,30 @@ export class PropertyService {
       lift: property.lift,
       paperworkUpdated: property.paperworkUpdated,
       onLoan: property.onLoan,
+      
+      // New optional fields
+      houseId: property.houseId,
+      streetAddress: property.streetAddress,
+      landmark: property.landmark,
+      area: property.area,
+      listingId: property.listingId,
+      inventoryStatus: property.inventoryStatus,
+      tenantType: property.tenantType,
+      propertyCategory: property.propertyCategory,
+      furnishingStatus: property.furnishingStatus,
+      availableFrom: property.availableFrom?.toISOString(),
+      floor: property.floor,
+      totalFloor: property.totalFloor,
+      yearOfConstruction: property.yearOfConstruction,
+      rent: property.rent,
+      serviceCharge: property.serviceCharge,
+      advanceMonths: property.advanceMonths,
+      cleanHygieneScore: property.cleanHygieneScore,
+      sunlightScore: property.sunlightScore,
+      bathroomConditionsScore: property.bathroomConditionsScore,
+      coverImage: property.coverImage,
+      otherImages: property.otherImages,
+      
       createdAt: property.createdAt?.toISOString() || new Date().toISOString(),
       updatedAt: property.updatedAt?.toISOString() || new Date().toISOString(),
     };

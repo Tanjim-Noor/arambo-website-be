@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PAGINATION } from '../config/constant';
 
 // Property Type enum
 export const PropertyTypeEnum = z.enum([
@@ -106,6 +107,11 @@ export const UpdatePropertyRequestSchema = PropertySchema.partial();
 
 // Query filters schema (for GET requests)
 export const PropertyFiltersSchema = z.object({
+  // Pagination parameters
+  page: z.string().transform((val) => Math.max(1, parseInt(val, 10)) || PAGINATION.DEFAULT_PAGE).optional(),
+  limit: z.string().transform((val) => Math.min(PAGINATION.MAX_LIMIT, Math.max(1, parseInt(val, 10))) || PAGINATION.DEFAULT_LIMIT).optional(),
+  
+  // Filter parameters
   category: CategoryEnum.optional(),
   propertyType: PropertyTypeEnum.optional(),
   bedrooms: z.string().transform((val) => parseInt(val, 10)).optional(),
@@ -135,9 +141,22 @@ export const PropertyResponseSchema = PropertySchema.extend({
   updatedAt: z.string(),
 });
 
+// Pagination metadata schema
+export const PaginationMetaSchema = z.object({
+  currentPage: z.number(),
+  limit: z.number(),
+  totalItems: z.number(),
+  totalPages: z.number(),
+  hasNextPage: z.boolean(),
+  hasPrevPage: z.boolean(),
+  nextPage: z.number().optional(),
+  prevPage: z.number().optional(),
+});
+
 export const PropertiesListResponseSchema = z.object({
   properties: z.array(PropertyResponseSchema),
-  total: z.number(),
+  total: z.number(), // For backward compatibility
+  pagination: PaginationMetaSchema,
 });
 
 // Error response schema
@@ -153,6 +172,7 @@ export type CreatePropertyRequest = z.infer<typeof CreatePropertyRequestSchema>;
 export type UpdatePropertyRequest = z.infer<typeof UpdatePropertyRequestSchema>;
 export type PropertyFilters = z.infer<typeof PropertyFiltersSchema>;
 export type PropertyResponse = z.infer<typeof PropertyResponseSchema>;
+export type PaginationMeta = z.infer<typeof PaginationMetaSchema>;
 export type PropertiesListResponse = z.infer<typeof PropertiesListResponseSchema>;
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
 export type PropertyType = z.infer<typeof PropertyTypeEnum>;
