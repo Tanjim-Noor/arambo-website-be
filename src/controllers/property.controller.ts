@@ -61,12 +61,16 @@ export const getProperties = async (
     // Validate query parameters
     const validatedFilters = PropertyFiltersSchema.parse(req.query);
 
-    // Query listings from Notion
+    console.log('Received query parameters:', req.query);
+    console.log('Validated filters:', validatedFilters);
+
+    // Query listings from database with pagination
     const result = await queryListings(validatedFilters);
 
     const response: PropertiesListResponse = {
       properties: result.properties,
       total: result.total,
+      pagination: result.pagination,
     };
 
     res.status(200).json(response);
