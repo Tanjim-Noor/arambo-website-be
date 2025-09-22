@@ -103,22 +103,9 @@ Choose one of the following options:
    mongosh mongodb://localhost:27017/arambo_properties_dev
    ```
 
-#### Option B: MongoDB Docker Container
 
-```bash
-# Run MongoDB in Docker
-docker run -d \
-  --name arambo-mongodb \
-  -p 27017:27017 \
-  -e MONGO_INITDB_DATABASE=arambo_properties_dev \
-  -v mongodb_data:/data/db \
-  mongo:7.0
 
-# Verify connection
-docker exec -it arambo-mongodb mongosh arambo_properties_dev
-```
-
-#### Option C: MongoDB Atlas (Cloud)
+#### MongoDB Atlas (Cloud)
 
 1. Create a free account at https://www.mongodb.com/cloud/atlas
 2. Create a new cluster
