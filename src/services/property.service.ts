@@ -44,7 +44,10 @@ export class PropertyService {
       const skip = (page - 1) * limit;
 
       // Build MongoDB filter query
-      const query: FilterQuery<IProperty> = {};
+      const query: FilterQuery<IProperty> = {
+        // Default filter: only return confirmed properties unless explicitly overridden
+        isConfirmed: filters.isConfirmed !== undefined ? filters.isConfirmed : true
+      };
 
       // Category filter
       if (filters.category) {
@@ -155,7 +158,7 @@ export class PropertyService {
 
       // Get total count for pagination
       const totalItems = await Property.countDocuments(query);
-
+      console.log('Query:', query);
       // Execute paginated query with sorting
       const properties = await Property.find(query)
         .sort({ createdAt: -1 as SortOrder })
@@ -197,9 +200,16 @@ export class PropertyService {
   /**
    * Get a single property by ID
    */
-  static async getListingById(id: string): Promise<PropertyResponse | null> {
+  static async getListingById(id: string, includeUnconfirmed: boolean = false): Promise<PropertyResponse | null> {
     try {
-      const property = await Property.findById(id).lean().exec();
+      const query: FilterQuery<IProperty> = { _id: id };
+      
+      // Only show confirmed properties by default
+      if (!includeUnconfirmed) {
+        query.isConfirmed = true;
+      }
+      
+      const property = await Property.findOne(query).lean().exec();
       
       if (!property) {
         return null;
@@ -288,7 +298,7 @@ export class PropertyService {
    */
   static async getPropertiesByCategory(category: string): Promise<PropertyResponse[]> {
     try {
-      const properties = await Property.find({ category })
+      const properties = await Property.find({ category, isConfirmed: true })
         .sort({ createdAt: -1 })
         .lean()
         .exec();
@@ -305,7 +315,7 @@ export class PropertyService {
    */
   static async getAvailableProperties(): Promise<PropertyResponse[]> {
     try {
-      const properties = await Property.find({ onLoan: false })
+      const properties = await Property.find({ onLoan: false, isConfirmed: true })
         .sort({ createdAt: -1 })
         .lean()
         .exec();
@@ -335,15 +345,17 @@ export class PropertyService {
         availableCount,
         onLoanCount
       ] = await Promise.all([
-        Property.countDocuments(),
+        Property.countDocuments({ isConfirmed: true }),
         Property.aggregate([
+          { $match: { isConfirmed: true } },
           { $group: { _id: '$category', count: { $sum: 1 } } }
         ]),
         Property.aggregate([
+          { $match: { isConfirmed: true } },
           { $group: { _id: '$propertyType', count: { $sum: 1 } } }
         ]),
-        Property.countDocuments({ onLoan: false }),
-        Property.countDocuments({ onLoan: true })
+        Property.countDocuments({ onLoan: false, isConfirmed: true }),
+        Property.countDocuments({ onLoan: true, isConfirmed: true })
       ]);
 
       const byCategory: Record<string, number> = {};
@@ -389,6 +401,7 @@ export class PropertyService {
       notes: property.notes || '',
       firstOwner: property.firstOwner,
       lift: property.lift,
+      isConfirmed: property.isConfirmed,
       paperworkUpdated: property.paperworkUpdated,
       onLoan: property.onLoan,
       

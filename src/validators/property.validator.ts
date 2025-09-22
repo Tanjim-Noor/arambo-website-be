@@ -72,6 +72,7 @@ export const PropertySchema = z.object({
   notes: z.string().max(1000, 'Notes must be less than 1000 characters').optional(),
   firstOwner: z.boolean().default(false),
   lift: z.boolean().default(false),
+  isConfirmed: z.boolean().default(false),
   paperworkUpdated: z.boolean().default(false),
   onLoan: z.boolean().default(false),
   
@@ -120,6 +121,7 @@ export const PropertyFiltersSchema = z.object({
   location: z.string().optional(),
   firstOwner: z.string().transform((val) => val === 'true').optional(),
   onLoan: z.string().transform((val) => val === 'true').optional(),
+  isConfirmed: z.string().transform((val) => val === 'true').optional(),
   
   // New filter fields
   area: z.string().optional(),
