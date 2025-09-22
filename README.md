@@ -198,7 +198,64 @@ npm run seed
 npm run db:seed
 ```
 
-## 📡 API Endpoints
+## � Database Migrations
+
+This project uses `migrate-mongo` for database schema migrations. There are two approaches for handling schema changes:
+
+### Migration Approach (Preserve Existing Data)
+
+**Use this when you have important data that must be preserved.**
+
+```bash
+# Check migration status
+npm run migrate:status
+
+# Apply pending migrations
+npm run migrate:up
+
+# Rollback last migration (if needed)
+npm run migrate:down
+
+# Create new migration
+npm run migrate:create migration-name
+```
+
+**Migration files are located in:** `src/database/migrations/`
+
+### Recreation Approach (Clean Slate)
+
+**Use this for development or when you want fresh data with updated schema.**
+
+```bash
+# Reset database completely and reseed with new data
+npm run db:reset:seed
+
+# Or just reset without seeding
+npm run db:reset
+
+# Then seed separately if needed
+npm run db:seed
+```
+
+### Migration vs Recreation: When to Use Each
+
+| Scenario | Migration Approach | Recreation Approach |
+|----------|-------------------|-------------------|
+| **Production with real data** | ✅ Preserve data | ❌ Never use |
+| **Development with test data** | ⚠️ Complex for major changes | ✅ Quick and clean |
+| **Major schema changes** | ⚠️ Requires careful planning | ✅ Simple and reliable |
+| **Adding optional fields** | ✅ Good fit | ✅ Also works |
+| **Breaking schema changes** | ❌ Risky | ✅ Safe |
+
+### Migration Scripts
+
+The project includes automated scripts for database management:
+
+- **`src/database/scripts/reset-database.ts`** - Handles database reset operations
+- **`src/database/migrations/`** - Contains migration files for schema changes
+- **`src/database/seeds/property.seed.ts`** - Sample data with all new fields
+
+## �📡 API Endpoints
 
 ### Base URL
 - Local: `http://localhost:4000/api`
