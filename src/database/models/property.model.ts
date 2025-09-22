@@ -158,8 +158,7 @@ const PropertySchema = new Schema<IProperty>({
   houseId: {
     type: String,
     trim: true,
-    maxlength: [50, 'House ID must be less than 50 characters'],
-    index: true
+    maxlength: [50, 'House ID must be less than 50 characters']
   },
   streetAddress: {
     type: String,
@@ -180,8 +179,7 @@ const PropertySchema = new Schema<IProperty>({
   listingId: {
     type: String,
     trim: true,
-    maxlength: [50, 'Listing ID must be less than 50 characters'],
-    index: true
+    maxlength: [50, 'Listing ID must be less than 50 characters']
   },
   inventoryStatus: {
     type: String,
