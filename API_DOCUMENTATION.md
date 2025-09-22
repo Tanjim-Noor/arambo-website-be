@@ -151,6 +151,9 @@ Retrieve property listings with optional filtering and pagination.
 | `floor` | integer | Specific floor number | `?floor=5` |
 | `houseId` | string | House ID search | `?houseId=H001` |
 | `listingId` | string | Listing ID search | `?listingId=L001` |
+| `isConfirmed` | boolean | Show confirmed/unconfirmed properties | `?isConfirmed=false` |
+
+**Note**: By default, the API only returns properties where `isConfirmed` is `true`. To see unconfirmed properties, explicitly set `isConfirmed=false`.
 
 **Example Request:**
 ```
@@ -177,6 +180,7 @@ GET /properties?page=1&limit=10&category=rent&propertyType=apartment&bedrooms=2&
       "notes": "Sea facing apartment with parking",
       "firstOwner": true,
       "lift": true,
+      "isConfirmed": true,
       "paperworkUpdated": true,
       "onLoan": false,
       "houseId": "H001",
@@ -336,6 +340,7 @@ interface Property {
   category: Category;             // rent, sale, lease, buy
   firstOwner: boolean;            // Is first owner
   lift: boolean;                  // Has elevator
+  isConfirmed: boolean;           // Property listing confirmed
   paperworkUpdated: boolean;      // Paperwork status
   onLoan: boolean;               // Property on loan
 

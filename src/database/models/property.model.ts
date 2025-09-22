@@ -21,6 +21,7 @@ export interface IProperty extends Document {
   createdAt: Date;
   updatedAt: Date;
   lift: boolean;
+  isConfirmed: boolean;
   
   // New fields
   houseId?: string;
@@ -143,6 +144,11 @@ const PropertySchema = new Schema<IProperty>({
   lift: { 
     type: Boolean,
     default: false,  // Set a default value (e.g., false for no lift)
+  },
+  isConfirmed: {
+    type: Boolean,
+    default: false,
+    index: true
   },
   paperworkUpdated: {
     type: Boolean,
@@ -303,6 +309,7 @@ PropertySchema.index({ propertyType: 1, category: 1 });
 PropertySchema.index({ location: 1, propertyType: 1 });
 PropertySchema.index({ bedrooms: 1, size: 1 });
 PropertySchema.index({ firstOwner: 1, onLoan: 1 });
+PropertySchema.index({ isConfirmed: 1 }); // Index for confirmed properties
 PropertySchema.index({ createdAt: -1 }); // For sorting by creation date
 PropertySchema.index({ email: 1, phone: 1 }); // Composite index for contact info
 PropertySchema.index({ area: 1, propertyCategory: 1 }); // New indexes

@@ -22,6 +22,7 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: true,
+    isConfirmed: true,
     // New fields
     houseId: 'A-01',
     streetAddress: 'Downtown, City Center, Metropolitan Area',
@@ -65,6 +66,7 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: false,
+    isConfirmed: true,
     // New fields
     houseId: 'H-05',
     streetAddress: 'Green Valley, Suburban District',
@@ -109,6 +111,7 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: true,
+    isConfirmed: true,
     // New fields
     houseId: 'V-12',
     streetAddress: 'Hillside Premium District, Elite Avenue',
@@ -153,6 +156,7 @@ const sampleProperties = [
     paperworkUpdated: false,
     onLoan: true,
     lift: true,
+    isConfirmed: true,
     // New fields
     houseId: 'S-08',
     streetAddress: 'Business District, Corporate Avenue',
@@ -195,6 +199,7 @@ const sampleProperties = [
     paperworkUpdated: true,
     onLoan: false,
     lift: true,
+    isConfirmed: true,
     // New fields
     houseId: 'C-15',
     streetAddress: 'Business Park Zone A, Tech Boulevard',
