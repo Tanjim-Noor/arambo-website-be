@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import { PORT, CORS_ORIGIN, isDevelopment } from './config';
 import { connectToDatabase } from './database';
 import propertyRoutes from './routes/property.routes';
+import truckRoutes from './routes/truck.routes';
+import tripRoutes from './routes/trip.routes';
 import { errorHandler, notFoundHandler, requestLogger } from './middlewares/error.middleware';
 
 // Create Express application
@@ -44,7 +46,9 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // API routes
-app.use('/properties', propertyRoutes);
+app.use('/api/properties', propertyRoutes);
+app.use('/api/trucks', truckRoutes);
+app.use('/api/trips', tripRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {

@@ -1,3 +1,5 @@
+
+
 // Database configuration and connection
 export * from './config/connection';
 
@@ -6,3 +8,5 @@ export * from './models/property.model';
 
 // Database seeds
 export * from './seeds/property.seed';
+
+
