@@ -20,6 +20,23 @@ export const getTrucks = async (_req: Request, res: Response) => {
   }
 };
 
+export const getTruckById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: 'Truck id is required' });
+    }
+    const truck = await TruckService.getTruckById(String(id));
+    if (truck) {
+      return res.json(truck);
+    } else {
+      return res.status(404).json({ error: 'Truck not found' });
+    }
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to fetch truck', details: err });
+  }
+};
+
 
 export const getTruckByIdFromBody = async (req: Request, res: Response) => {
   try {
@@ -46,11 +63,11 @@ export const getTruckByIdFromBody = async (req: Request, res: Response) => {
 
 export const updateTruck = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id, ...updateData } = req.body;
     if (!id) {
-      return res.status(400).json({ error: 'Truck id is required' });
+      return res.status(400).json({ error: 'Truck id is required in request body' });
     }
-    const truck = await TruckService.updateTruck(String(id), req.body);
+    const truck = await TruckService.updateTruck(String(id), updateData);
     if (truck) return res.json(truck);
     else return res.status(404).json({ error: 'Truck not found' });
   } catch (err) {
@@ -60,9 +77,9 @@ export const updateTruck = async (req: Request, res: Response) => {
 
 export const deleteTruck = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
     if (!id) {
-      return res.status(400).json({ error: 'Truck id is required' });
+      return res.status(400).json({ error: 'Truck id is required in request body' });
     }
     const truck = await TruckService.deleteTruck(String(id));
     if (truck) return res.json({ success: true });

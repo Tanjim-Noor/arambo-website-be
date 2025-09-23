@@ -13,7 +13,18 @@ export const createTruckSchema = z.object({
 });
 
 // Schema for updating a truck
-export const updateTruckSchema = createTruckSchema.partial();
+export const updateTruckSchema = createTruckSchema.partial().extend({
+  id: z.string()
+    .min(1, 'Truck ID is required')
+    .regex(/^[0-9a-fA-F]{24}$/, 'Invalid truck ID format')
+});
+
+// Schema for deleting a truck
+export const deleteTruckSchema = z.object({
+  id: z.string()
+    .min(1, 'Truck ID is required')
+    .regex(/^[0-9a-fA-F]{24}$/, 'Invalid truck ID format')
+});
 
 // Schema for getting truck by ID from request body
 export const getTruckByIdSchema = z.object({
@@ -25,4 +36,5 @@ export const getTruckByIdSchema = z.object({
 // Types
 export type CreateTruckRequest = z.infer<typeof createTruckSchema>;
 export type UpdateTruckRequest = z.infer<typeof updateTruckSchema>;
+export type DeleteTruckRequest = z.infer<typeof deleteTruckSchema>;
 export type GetTruckByIdRequest = z.infer<typeof getTruckByIdSchema>;

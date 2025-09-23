@@ -6,7 +6,7 @@ export class TripService {
     phone: string;
     email: string;
     productType: string;
-    tripDetails: string;
+    pickupLocation: string;
     dropOffLocation: string;
     preferredDate: Date;
     preferredTimeSlot: string;
@@ -32,7 +32,7 @@ export class TripService {
       phone: string;
       email: string;
       productType: string;
-      tripDetails: string;
+      pickupLocation: string;
       dropOffLocation: string;
       preferredDate: Date;
       preferredTimeSlot: string;
@@ -40,7 +40,32 @@ export class TripService {
       truckId: string;
     }>
   ): Promise<ITrip | null> {
-    return await Trip.findByIdAndUpdate(id, data, { new: true }).populate('truck');
+    // Filter out undefined/null values and only update existing fields
+    const updateData: any = {};
+    
+    // Only allow updating fields that exist in the schema
+    const allowedFields = ['name', 'phone', 'email', 'productType', 'pickupLocation', 'dropOffLocation', 'preferredDate', 'preferredTimeSlot', 'additionalNotes', 'truckId'];
+    
+    Object.keys(data).forEach(key => {
+      if (allowedFields.includes(key) && data[key as keyof typeof data] !== undefined && data[key as keyof typeof data] !== null) {
+        updateData[key] = data[key as keyof typeof data];
+      }
+    });
+    
+    // Return null if no valid fields to update
+    if (Object.keys(updateData).length === 0) {
+      return null;
+    }
+    
+    return await Trip.findByIdAndUpdate(
+      id, 
+      { $set: updateData }, 
+      { 
+        new: true, 
+        runValidators: true,
+        upsert: false // Prevent creating new documents
+      }
+    ).populate('truck');
   }
 
   static async deleteTrip(id: string): Promise<ITrip | null> {

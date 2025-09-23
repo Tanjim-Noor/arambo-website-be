@@ -1,0 +1,343 @@
+{
+  "info": {
+    "name": "Arambo Backend API",
+    "description": "Complete CRUD operations for Trucks and Trips",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Trucks",
+      "item": [
+        {
+          "name": "Create Truck",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"ABC-1234\",\n  \"driverName\": \"John Doe\",\n  \"driverPhone\": \"01712345678\",\n  \"capacity\": \"5 tons\",\n  \"truckType\": \"Covered Van\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trucks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trucks"]
+            }
+          }
+        },
+        {
+          "name": "Get All Trucks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trucks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trucks"]
+            }
+          }
+        },
+        {
+          "name": "Get Truck by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trucks/{{truck_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trucks", "{{truck_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Truck",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{truck_id}}\",\n  \"plateNumber\": \"XYZ-9999\",\n  \"driverName\": \"Jane Smith\",\n  \"driverPhone\": \"01987654321\",\n  \"capacity\": \"7 tons\",\n  \"truckType\": \"Open Truck\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trucks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trucks"]
+            }
+          }
+        },
+        {
+          "name": "Delete Truck",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{truck_id}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trucks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trucks"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trips",
+      "item": [
+        {
+          "name": "Create Trip",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Johnson\",\n  \"phone\": \"01712345678\",\n  \"email\": \"alice@example.com\",\n  \"productType\": \"Fragile\",\n  \"pickupLocation\": \"123 Main Street, Dhaka\",\n  \"dropOffLocation\": \"456 Park Avenue, Chittagong\",\n  \"preferredDate\": \"2024-01-15\",\n  \"preferredTimeSlot\": \"Morning (8AM - 12PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trips",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips"]
+            }
+          }
+        },
+        {
+          "name": "Get All Trips",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips"]
+            }
+          }
+        },
+        {
+          "name": "Get Trip by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips/{{trip_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips", "{{trip_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Trip",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{trip_id}}\",\n  \"name\": \"Alice Johnson Updated\",\n  \"phone\": \"01987654321\",\n  \"email\": \"alice.updated@example.com\",\n  \"productType\": \"Non-Perishable Goods\",\n  \"pickupLocation\": \"789 Updated Street, Dhaka\",\n  \"dropOffLocation\": \"321 New Avenue, Sylhet\",\n  \"preferredDate\": \"2024-02-20\",\n  \"preferredTimeSlot\": \"Evening (4PM - 8PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trips",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips"]
+            }
+          }
+        },
+        {
+          "name": "Delete Trip",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{trip_id}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trips",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips"]
+            }
+          }
+        },
+        {
+          "name": "Get Trips by Truck ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips/truck/{{truck_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips", "truck", "{{truck_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Trips by Date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips/date?date=2024-01-15",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips", "date"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2024-01-15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Trips by Time Slot - Morning",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips/timeslot/Morning (8AM - 12PM)",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips", "timeslot", "Morning (8AM - 12PM)"]
+            }
+          }
+        },
+        {
+          "name": "Get Trips by Time Slot - Afternoon",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips/timeslot/Afternoon (12PM - 4PM)",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips", "timeslot", "Afternoon (12PM - 4PM)"]
+            }
+          }
+        },
+        {
+          "name": "Get Trips by Time Slot - Evening",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:4000/api/trips/timeslot/Evening (4PM - 8PM)",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips", "timeslot", "Evening (4PM - 8PM)"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation Tests",
+      "item": [
+        {
+          "name": "Invalid Product Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Invalid Product\",\n  \"phone\": \"01712345678\",\n  \"email\": \"test@example.com\",\n  \"productType\": \"Invalid Type\",\n  \"pickupLocation\": \"Test Location\",\n  \"dropOffLocation\": \"Test Drop\",\n  \"preferredDate\": \"2024-01-15\",\n  \"preferredTimeSlot\": \"Morning (8AM - 12PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trips",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips"]
+            }
+          }
+        },
+        {
+          "name": "Invalid Time Slot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Invalid Time\",\n  \"phone\": \"01712345678\",\n  \"email\": \"test@example.com\",\n  \"productType\": \"Other\",\n  \"pickupLocation\": \"Test Location\",\n  \"dropOffLocation\": \"Test Drop\",\n  \"preferredDate\": \"2024-01-15\",\n  \"preferredTimeSlot\": \"Night\",\n  \"truckId\": \"{{truck_id}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/trips",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "4000",
+              "path": ["api", "trips"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "truck_id",
+      "value": "68d26e129f10e9b5c0031915",
+      "type": "string"
+    },
+    {
+      "key": "trip_id", 
+      "value": "68d26e129f10e9b5c0031916",
+      "type": "string"
+    }
+  ]
+}
