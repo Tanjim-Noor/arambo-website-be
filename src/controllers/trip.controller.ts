@@ -35,11 +35,11 @@ export const getTripById = async (req: Request, res: Response) => {
 
 export const updateTrip = async (req: Request, res: Response) => {
   try {
-    const { id, ...updateData } = req.body;
+    const { id } = req.params;
     if (!id) {
-      return res.status(400).json({ error: 'Trip id is required in request body' });
+      return res.status(400).json({ error: 'Trip id is required' });
     }
-    const trip = await TripService.updateTrip(String(id), updateData);
+    const trip = await TripService.updateTrip(String(id), req.body);
     if (trip) res.json(trip);
     else res.status(404).json({ error: 'Trip not found' });
   } catch (err) {
@@ -49,9 +49,9 @@ export const updateTrip = async (req: Request, res: Response) => {
 
 export const deleteTrip = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     if (!id) {
-      return res.status(400).json({ error: 'Trip id is required in request body' });
+      return res.status(400).json({ error: 'Trip id is required' });
     }
     const trip = await TripService.deleteTrip(String(id));
     if (trip) res.json({ success: true });

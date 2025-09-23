@@ -18,7 +18,7 @@ router.get('/date', getTripsByDate); // GET /trips/date?date=2023-12-25
 router.get('/truck/:truckId', getTripsByTruck);
 router.get('/timeslot/:timeSlot', getTripsByTimeSlot);
 router.get('/:id', getTripById);
-router.put('/', updateTrip);
-router.delete('/', deleteTrip);
+router.put('/:id', updateTrip);
+router.delete('/:id', deleteTrip);
 
 export default router;
