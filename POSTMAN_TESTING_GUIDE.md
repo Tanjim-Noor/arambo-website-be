@@ -30,12 +30,12 @@
 
 #### 4. **UPDATE Truck**
 - **Method:** `PUT`
-- **URL:** `http://localhost:4000/api/trucks`
+- **URL:** `http://localhost:4000/api/trucks/{truck_id}`
+- **Example:** `http://localhost:4000/api/trucks/68d26e129f10e9b5c0031915`
 - **Headers:** `Content-Type: application/json`
 - **Body (JSON):**
 ```json
 {
-  "id": "68d26e129f10e9b5c0031915",
   "modelNumber": "T-999",
   "height": 5.0,
   "isOpen": false
@@ -44,14 +44,9 @@
 
 #### 5. **DELETE Truck**
 - **Method:** `DELETE`
-- **URL:** `http://localhost:4000/api/trucks`
-- **Headers:** `Content-Type: application/json`
-- **Body (JSON):**
-```json
-{
-  "id": "68d26e129f10e9b5c0031915"
-}
-```
+- **URL:** `http://localhost:4000/api/trucks/{truck_id}`
+- **Example:** `http://localhost:4000/api/trucks/68d26e129f10e9b5c0031915`
+- **Headers:** None required
 
 ---
 
@@ -89,12 +84,12 @@
 
 #### 4. **UPDATE Trip**
 - **Method:** `PUT`
-- **URL:** `http://localhost:4000/api/trips`
+- **URL:** `http://localhost:4000/api/trips/{trip_id}`
+- **Example:** `http://localhost:4000/api/trips/68d26e129f10e9b5c0031916`
 - **Headers:** `Content-Type: application/json`
 - **Body (JSON):**
 ```json
 {
-  "id": "68d26e129f10e9b5c0031916",
   "name": "Alice Johnson Updated",
   "phone": "01987654321",
   "email": "alice.updated@example.com",
@@ -109,14 +104,9 @@
 
 #### 5. **DELETE Trip**
 - **Method:** `DELETE`
-- **URL:** `http://localhost:4000/api/trips`
-- **Headers:** `Content-Type: application/json`
-- **Body (JSON):**
-```json
-{
-  "id": "68d26e129f10e9b5c0031916"
-}
-```
+- **URL:** `http://localhost:4000/api/trips/{trip_id}`
+- **Example:** `http://localhost:4000/api/trips/68d26e129f10e9b5c0031916`
+- **Headers:** None required
 
 ---
 
@@ -235,11 +225,10 @@ Content-Type: application/json
 
 **Update Trip:**
 ```
-PUT http://localhost:4000/api/trips
+PUT http://localhost:4000/api/trips/{trip_id}
 Content-Type: application/json
 
 {
-  "id": "USE_REAL_TRIP_ID_HERE",
   "name": "Updated Customer Name",
   "preferredTimeSlot": "Evening (4PM - 8PM)"
 }
@@ -247,11 +236,6 @@ Content-Type: application/json
 
 **Delete Trip:**
 ```
-DELETE http://localhost:4000/api/trips
-Content-Type: application/json
-
-{
-  "id": "USE_REAL_TRIP_ID_HERE"
-}
+DELETE http://localhost:4000/api/trips/{trip_id}
 ```
 

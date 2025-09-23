@@ -69,14 +69,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"{{truck_id}}\",\n  \"plateNumber\": \"XYZ-9999\",\n  \"driverName\": \"Jane Smith\",\n  \"driverPhone\": \"01987654321\",\n  \"capacity\": \"7 tons\",\n  \"truckType\": \"Open Truck\"\n}"
+              "raw": "{\n  \"modelNumber\": \"T-999\",\n  \"height\": 5.0,\n  \"isOpen\": false\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trucks",
+              "raw": "http://localhost:4000/api/trucks/{{truck_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks"]
+              "path": ["api", "trucks", "{{truck_id}}"]
             }
           }
         },
@@ -84,22 +84,12 @@
           "name": "Delete Truck",
           "request": {
             "method": "DELETE",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"{{truck_id}}\"\n}"
-            },
             "url": {
-              "raw": "http://localhost:4000/api/trucks",
+              "raw": "http://localhost:4000/api/trucks/{{truck_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks"]
+              "path": ["api", "trucks", "{{truck_id}}"]
             }
           }
         }
@@ -169,14 +159,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"{{trip_id}}\",\n  \"name\": \"Alice Johnson Updated\",\n  \"phone\": \"01987654321\",\n  \"email\": \"alice.updated@example.com\",\n  \"productType\": \"Non-Perishable Goods\",\n  \"pickupLocation\": \"789 Updated Street, Dhaka\",\n  \"dropOffLocation\": \"321 New Avenue, Sylhet\",\n  \"preferredDate\": \"2024-02-20\",\n  \"preferredTimeSlot\": \"Evening (4PM - 8PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
+              "raw": "{\n  \"name\": \"Alice Johnson Updated\",\n  \"phone\": \"01987654321\",\n  \"email\": \"alice.updated@example.com\",\n  \"productType\": \"Non-Perishable Goods\",\n  \"pickupLocation\": \"789 Updated Street, Dhaka\",\n  \"dropOffLocation\": \"321 New Avenue, Sylhet\",\n  \"preferredDate\": \"2024-02-20\",\n  \"preferredTimeSlot\": \"Evening (4PM - 8PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trips",
+              "raw": "http://localhost:4000/api/trips/{{trip_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips"]
+              "path": ["api", "trips", "{{trip_id}}"]
             }
           }
         },
@@ -184,22 +174,12 @@
           "name": "Delete Trip",
           "request": {
             "method": "DELETE",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"{{trip_id}}\"\n}"
-            },
             "url": {
-              "raw": "http://localhost:4000/api/trips",
+              "raw": "http://localhost:4000/api/trips/{{trip_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips"]
+              "path": ["api", "trips", "{{trip_id}}"]
             }
           }
         },

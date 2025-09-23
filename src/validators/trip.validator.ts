@@ -46,18 +46,7 @@ export const createTripSchema = z.object({
 });
 
 // Schema for updating a trip
-export const updateTripSchema = createTripSchema.partial().extend({
-  id: z.string()
-    .min(1, 'Trip ID is required')
-    .regex(/^[0-9a-fA-F]{24}$/, 'Invalid trip ID format')
-});
-
-// Schema for deleting a trip
-export const deleteTripSchema = z.object({
-  id: z.string()
-    .min(1, 'Trip ID is required')
-    .regex(/^[0-9a-fA-F]{24}$/, 'Invalid trip ID format')
-});
+export const updateTripSchema = createTripSchema.partial();
 
 // Schema for getting trip by ID from request body
 export const getTripByIdSchema = z.object({
