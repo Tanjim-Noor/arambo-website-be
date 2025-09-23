@@ -4,11 +4,11 @@ export interface ITrip extends Document {
   name: string;
   phone: string;
   email: string;
-  productType: string;
-  tripDetails: string;
+  productType: 'Perishable Goods' | 'Non-Perishable Goods' | 'Fragile' | 'Other';
+  pickupLocation: string;
   dropOffLocation: string;
   preferredDate: Date;
-  preferredTimeSlot: string;
+  preferredTimeSlot: 'Morning (8AM - 12PM)' | 'Afternoon (12PM - 4PM)' | 'Evening (4PM - 8PM)';
   additionalNotes?: string;
   truckId: mongoose.Types.ObjectId;
   createdAt: Date;
@@ -44,14 +44,18 @@ const TripSchema = new Schema<ITrip>({
     type: String,
     required: [true, 'Product type is required'],
     trim: true,
-    maxlength: [100, 'Product type must be less than 100 characters'],
+    enum: {
+      values: ['Perishable Goods', 'Non-Perishable Goods', 'Fragile', 'Other'],
+      message: 'Product type must be one of: Perishable Goods, Non-Perishable Goods, Fragile, or Other'
+    },
     index: true
   },
-  tripDetails: {
+  pickupLocation: {
     type: String,
-    required: [true, 'Trip details are required'],
+    required: [true, 'Pickup location is required'],
     trim: true,
-    maxlength: [1000, 'Trip details must be less than 1000 characters']
+    maxlength: [300, 'Pickup location must be less than 300 characters'],
+    index: true
   },
   dropOffLocation: {
     type: String,
@@ -69,8 +73,8 @@ const TripSchema = new Schema<ITrip>({
     type: String,
     required: [true, 'Preferred time slot is required'],
     enum: {
-      values: ['morning', 'afternoon', 'evening', 'night'],
-      message: 'Invalid time slot. Must be: morning, afternoon, evening, or night'
+      values: ['Morning (8AM - 12PM)', 'Afternoon (12PM - 4PM)', 'Evening (4PM - 8PM)'],
+      message: 'Invalid time slot. Must be: Morning (8AM - 12PM), Afternoon (12PM - 4PM), or Evening (4PM - 8PM)'
     },
     index: true
   },

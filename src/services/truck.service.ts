@@ -15,7 +15,32 @@ export class TruckService {
   }
 
   static async updateTruck(id: string, data: Partial<{ modelNumber: string; height: number; isOpen: boolean }>): Promise<ITruck | null> {
-    return await Truck.findByIdAndUpdate(id, data, { new: true });
+    // Filter out undefined/null values and only update existing fields
+    const updateData: any = {};
+    
+    // Only allow updating fields that exist in the schema
+    const allowedFields = ['modelNumber', 'height', 'isOpen'];
+    
+    Object.keys(data).forEach(key => {
+      if (allowedFields.includes(key) && data[key as keyof typeof data] !== undefined && data[key as keyof typeof data] !== null) {
+        updateData[key] = data[key as keyof typeof data];
+      }
+    });
+    
+    // Return null if no valid fields to update
+    if (Object.keys(updateData).length === 0) {
+      return null;
+    }
+    
+    return await Truck.findByIdAndUpdate(
+      id, 
+      { $set: updateData }, 
+      { 
+        new: true, 
+        runValidators: true,
+        upsert: false // Prevent creating new documents
+      }
+    );
   }
 
   static async deleteTruck(id: string): Promise<ITruck | null> {
