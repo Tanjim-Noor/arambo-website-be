@@ -3,24 +3,15 @@ import { PAGINATION } from '../config/constant';
 
 // Property Type enum
 export const PropertyTypeEnum = z.enum([
-  'apartment',
-  'house',
-  'villa',
-  'townhouse',
-  'studio',
-  'duplex',
-  'penthouse',
-  'commercial',
-  'land',
-  'other'
+  'for Rent',
+  'for Sale',
 ]);
 
 // Category enum
 export const CategoryEnum = z.enum([
-  'sale',
-  'rent',
-  'lease',
-  'buy'
+  'furnished',
+  'semi-furnished',
+  'unfurnished'
 ]);
 
 // New enums for the additional fields
@@ -44,10 +35,8 @@ export const TenantTypeEnum = z.enum([
 ]);
 
 export const PropertyCategoryEnum = z.enum([
-  'Residential',
-  'Commercial',
-  'Industrial',
-  'Mixed'
+  'residential',
+  'commercial',
 ]);
 
 export const FurnishingStatusEnum = z.enum([
@@ -62,12 +51,12 @@ export const PropertySchema = z.object({
   email: z.string().email('Invalid email format'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number must be less than 15 digits'),
   propertyName: z.string().min(1, 'Property name is required').max(200, 'Property name must be less than 200 characters'),
-  propertyType: PropertyTypeEnum,
+  propertyType: PropertyTypeEnum.optional(),
   size: z.number().min(1, 'Size must be greater than 0').max(100000, 'Size seems unrealistic'),
   location: z.string().min(1, 'Location is required').max(300, 'Location must be less than 300 characters'),
   bedrooms: z.number().min(0, 'Bedrooms cannot be negative').max(50, 'Too many bedrooms'),
   bathroom: z.number().min(0, 'Bathrooms cannot be negative').max(50, 'Too many bathrooms'),
-  baranda: z.boolean().default(false),
+  baranda: z.number().min(0, 'Baranda cannot be negative').default(0),
   category: CategoryEnum,
   notes: z.string().max(1000, 'Notes must be less than 1000 characters').optional(),
   firstOwner: z.boolean().default(false),

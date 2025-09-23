@@ -12,16 +12,16 @@ export interface IProperty extends Document {
   location: string;
   bedrooms: number;
   bathroom: number;
-  baranda: boolean;
+  baranda?: number;
   category: Category;
   notes?: string;
-  firstOwner: boolean;
-  paperworkUpdated: boolean;
-  onLoan: boolean;
+  firstOwner?: boolean;
+  paperworkUpdated?: boolean;
+  onLoan?: boolean;
   createdAt: Date;
   updatedAt: Date;
-  lift: boolean;
-  isConfirmed: boolean;
+  lift?: boolean;
+  isConfirmed?: boolean;
   
   // New fields
   houseId?: string;
@@ -82,11 +82,6 @@ const PropertySchema = new Schema<IProperty>({
   },
   propertyType: {
     type: String,
-    required: [true, 'Property type is required'],
-    enum: {
-      values: ['apartment', 'house', 'villa', 'townhouse', 'studio', 'duplex', 'penthouse', 'commercial', 'land', 'other'],
-      message: 'Invalid property type'
-    },
     index: true
   },
   size: {
@@ -118,14 +113,15 @@ const PropertySchema = new Schema<IProperty>({
     max: [50, 'Too many bathrooms']
   },
   baranda: {
-    type: Boolean,
-    default: false
+    type: Number,
+    default: 0,
+    min: [0, 'Baranda cannot be negative']
   },
   category: {
     type: String,
     required: [true, 'Category is required'],
     enum: {
-      values: ['sale', 'rent', 'lease', 'buy'],
+      values: ['furnished', 'semi-furnished', 'unfurnished'],
       message: 'Invalid category'
     },
     index: true
@@ -207,7 +203,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Residential', 'Commercial', 'Industrial', 'Mixed'],
+      values: ['residential', 'commercial'],
       message: 'Invalid property category'
     }
   },
