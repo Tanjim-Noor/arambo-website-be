@@ -88,7 +88,7 @@ const PropertySchema = new Schema<IProperty>({
   propertyType: {
     type: String,
     enum: {
-      values: ['apartment', 'house', 'villa'],
+      values: ['Apartment', 'House', 'Villa'],
       message: 'Invalid property type'
     }
   },
@@ -129,7 +129,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     required: [true, 'Category is required'],
     enum: {
-      values: ['furnished', 'semi-furnished', 'unfurnished'],
+      values: ['Furnished', 'Semi-Furnished', 'Unfurnished'],
       message: 'Invalid category'
     },
     index: true
@@ -203,7 +203,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Family', 'Bachelor', 'Office', 'Commercial', 'Any'],
+      values: ['Family', 'Bachelor', 'Office', 'Women', 'Commercial', 'Any'],
       message: 'Invalid tenant type'
     }
   },
@@ -211,7 +211,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['residential', 'commercial'],
+      values: ['Residential', 'Commercial'],
       message: 'Invalid property category'
     }
   },

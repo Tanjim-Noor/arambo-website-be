@@ -3,22 +3,22 @@ import { PAGINATION } from '../config/constant';
 
 // Listing Type enum (formerly PropertyType)
 export const ListingTypeEnum = z.enum([
-  'for Rent',
-  'for Sale',
+  'For Rent',
+  'For Sale',
 ]);
 
 // Property Type enum (new field)
 export const PropertyTypeEnum = z.enum([
-  'apartment',
-  'house',
-  'villa',
+  'Apartment',
+  'House',
+  'Villa',
 ]);
 
 // Category enum
 export const CategoryEnum = z.enum([
-  'furnished',
-  'semi-furnished',
-  'unfurnished'
+  'Furnished',
+  'Semi-Furnished',
+  'Unfurnished'
 ]);
 
 // New enums for the additional fields
@@ -37,13 +37,14 @@ export const TenantTypeEnum = z.enum([
   'Family',
   'Bachelor', 
   'Office',
+  'Women',
   'Commercial',
   'Any'
 ]);
 
 export const PropertyCategoryEnum = z.enum([
-  'residential',
-  'commercial',
+  'Residential',
+  'Commercial',
 ]);
 
 export const FurnishingStatusEnum = z.enum([
