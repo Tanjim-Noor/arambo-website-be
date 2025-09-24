@@ -1,10 +1,17 @@
 import { z } from 'zod';
 import { PAGINATION } from '../config/constant';
 
-// Property Type enum
-export const PropertyTypeEnum = z.enum([
+// Listing Type enum (formerly PropertyType)
+export const ListingTypeEnum = z.enum([
   'for Rent',
   'for Sale',
+]);
+
+// Property Type enum (new field)
+export const PropertyTypeEnum = z.enum([
+  'apartment',
+  'house',
+  'villa',
 ]);
 
 // Category enum
@@ -51,6 +58,7 @@ export const PropertySchema = z.object({
   email: z.string().email('Invalid email format'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number must be less than 15 digits'),
   propertyName: z.string().min(1, 'Property name is required').max(200, 'Property name must be less than 200 characters'),
+  listingType: ListingTypeEnum.optional(),
   propertyType: PropertyTypeEnum.optional(),
   size: z.number().min(1, 'Size must be greater than 0').max(100000, 'Size seems unrealistic'),
   location: z.string().min(1, 'Location is required').max(300, 'Location must be less than 300 characters'),
@@ -103,6 +111,7 @@ export const PropertyFiltersSchema = z.object({
   
   // Filter parameters
   category: CategoryEnum.optional(),
+  listingType: ListingTypeEnum.optional(),
   propertyType: PropertyTypeEnum.optional(),
   bedrooms: z.string().transform((val) => parseInt(val, 10)).optional(),
   minSize: z.string().transform((val) => parseInt(val, 10)).optional(),
@@ -167,6 +176,7 @@ export type PaginationMeta = z.infer<typeof PaginationMetaSchema>;
 export type PropertiesListResponse = z.infer<typeof PropertiesListResponseSchema>;
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
 export type PropertyType = z.infer<typeof PropertyTypeEnum>;
+export type ListingType = z.infer<typeof ListingTypeEnum>;
 export type Category = z.infer<typeof CategoryEnum>;
 export type InventoryStatus = z.infer<typeof InventoryStatusEnum>;
 export type TenantType = z.infer<typeof TenantTypeEnum>;

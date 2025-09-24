@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { PropertyType, Category } from '../../validators/property.validator';
+import { ListingType, Category, PropertyType } from '../../validators/property.validator';
 
 // Interface for the Property document
 export interface IProperty extends Document {
@@ -7,7 +7,8 @@ export interface IProperty extends Document {
   email: string;
   phone: string;
   propertyName: string;
-  propertyType: PropertyType;
+  listingType: ListingType;
+  propertyType?: PropertyType;
   size: number;
   location: string;
   bedrooms: number;
@@ -80,9 +81,16 @@ const PropertySchema = new Schema<IProperty>({
     minlength: [1, 'Property name cannot be empty'],
     index: true
   },
-  propertyType: {
+  listingType: {
     type: String,
     index: true
+  },
+  propertyType: {
+    type: String,
+    enum: {
+      values: ['apartment', 'house', 'villa'],
+      message: 'Invalid property type'
+    }
   },
   size: {
     type: Number,
@@ -301,8 +309,8 @@ const PropertySchema = new Schema<IProperty>({
 });
 
 // Indexes for better query performance
-PropertySchema.index({ propertyType: 1, category: 1 });
-PropertySchema.index({ location: 1, propertyType: 1 });
+PropertySchema.index({ listingType: 1, category: 1 });
+PropertySchema.index({ location: 1, listingType: 1 });
 PropertySchema.index({ bedrooms: 1, size: 1 });
 PropertySchema.index({ firstOwner: 1, onLoan: 1 });
 PropertySchema.index({ isConfirmed: 1 }); // Index for confirmed properties
@@ -357,7 +365,11 @@ PropertySchema.statics.findByCategory = function(category: Category) {
   return this.find({ category });
 };
 
-PropertySchema.statics.findByPropertyType = function(propertyType: PropertyType) {
+PropertySchema.statics.findByListingType = function(listingType: ListingType) {
+  return this.find({ listingType });
+};
+
+PropertySchema.statics.findByPropertyType = function(propertyType: 'Apartment' | 'House' | 'Villa') {
   return this.find({ propertyType });
 };
 

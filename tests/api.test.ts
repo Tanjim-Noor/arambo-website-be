@@ -97,7 +97,7 @@ describe('Property API', () => {
       await Property.create([
         { ...validProperty, propertyName: 'Property 1', category: 'sale' },
         { ...validProperty, propertyName: 'Property 2', category: 'rent' },
-        { ...validProperty, propertyName: 'Property 3', category: 'sale', propertyType: 'house' },
+        { ...validProperty, propertyName: 'Property 3', category: 'sale', propertyType: 'House' },
       ]);
     });
 

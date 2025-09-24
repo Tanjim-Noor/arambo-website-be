@@ -496,6 +496,14 @@ NODE_ENV=development npm run dev
 DEBUG=* npm run dev
 ```
 
+## 📚 Additional Documentation
+
+For detailed technical documentation about the codebase, including database scripts, migration tools, and development utilities, see:
+
+- **[Codebase Documentation](CODEBASE_DOCUMENTATION.md)** - Database scripts, migration tools, development utilities
+- **[API Documentation](API_DOCUMENTATION.md)** - Complete API reference and examples
+- **[Migration Guide](MIGRATION_GUIDE.md)** - Database schema migration procedures
+
 ## 🤝 Contributing
 
 1. Fork the repository
