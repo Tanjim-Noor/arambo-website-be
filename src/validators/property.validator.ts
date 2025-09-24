@@ -23,40 +23,80 @@ export const CategoryEnum = z.enum([
 
 // New enums for the additional fields
 export const InventoryStatusEnum = z.enum([
-  'Looking for Rent'
+  'Looking for Rent',
+  'Found Tenant',
+  'Owner Unreachable'
 ]);
 
 export const TenantTypeEnum = z.enum([
   'Family',
-  'Bachelor'
+  'Bachelor',
+  'Women'
 ]);
 
 export const PropertyCategoryEnum = z.enum([
-  'Residential'
+  'Residential',
+  'Commercial'
 ]);
 
 export const FurnishingStatusEnum = z.enum([
-  'Non-Furnished'
+  'Non-Furnished',
+  'Semi-Furnished',
+  'Furnished'
 ]);
 
 // Area enum with areas from CSV data
 export const AreaEnum = z.enum([
   'Aftabnagar',
+  'Banani',
+  'Banani DOHs',
+  'Banashree',
   'Banasree',
+  'Baridhara DOHs',
+  'Baridhara J Block',
   'Bashundhara Residential',
-  'DIT & Merul Badda',
   'Dhanmondi',
+  'DIT & Merul Badda',
+  'Greenroad',
   'Gudaraghat',
   'Gulshan 1',
   'Gulshan 2',
+  'Lalmatia',
   'Middle Badda',
   'Mirpur DOHs',
+  'Mohakhali Amtoli',
+  'Mohakhali DOHs',
+  'Mohakhali TB Gate',
+  'Mohakhali Wireless',
+  'Mohanagar Project',
   'Niketan',
+  'Nikunja 1',
+  'Nikunja 2',
   'North Badda',
+  'Notun Bazar',
   'Shahjadpur Beside & near Suvastu',
   'Shahjadpur Lakeside',
+  'Shanti Niketan',
   'South Badda',
-  'Uttara Sector 13'
+  'South Banasree',
+  'Uttara Sector 1',
+  'Uttara Sector 2',
+  'Uttara Sector 3',
+  'Uttara Sector 4',
+  'Uttara Sector 5',
+  'Uttara Sector 6',
+  'Uttara Sector 7',
+  'Uttara Sector 8',
+  'Uttara Sector 9',
+  'Uttara Sector 10',
+  'Uttara Sector 11',
+  'Uttara Sector 12',
+  'Uttara Sector 13',
+  'Uttara Sector 14',
+  'Uttara Sector 15',
+  'Uttara Sector 16',
+  'Uttara Sector 17',
+  'Uttara Sector 18'
 ]);
 
 // Base property schema with all required fields

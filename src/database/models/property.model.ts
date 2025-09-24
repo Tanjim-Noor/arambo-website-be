@@ -186,21 +186,55 @@ const PropertySchema = new Schema<IProperty>({
     enum: {
       values: [
         'Aftabnagar',
+        'Banani',
+        'Banani DOHs',
+        'Banashree',
         'Banasree',
+        'Baridhara DOHs',
+        'Baridhara J Block',
         'Bashundhara Residential',
-        'DIT & Merul Badda',
         'Dhanmondi',
+        'DIT & Merul Badda',
+        'Greenroad',
         'Gudaraghat',
         'Gulshan 1',
         'Gulshan 2',
+        'Lalmatia',
         'Middle Badda',
         'Mirpur DOHs',
+        'Mohakhali Amtoli',
+        'Mohakhali DOHs',
+        'Mohakhali TB Gate',
+        'Mohakhali Wireless',
+        'Mohanagar Project',
         'Niketan',
+        'Nikunja 1',
+        'Nikunja 2',
         'North Badda',
+        'Notun Bazar',
         'Shahjadpur Beside & near Suvastu',
         'Shahjadpur Lakeside',
+        'Shanti Niketan',
         'South Badda',
-        'Uttara Sector 13'
+        'South Banasree',
+        'Uttara Sector 1',
+        'Uttara Sector 2',
+        'Uttara Sector 3',
+        'Uttara Sector 4',
+        'Uttara Sector 5',
+        'Uttara Sector 6',
+        'Uttara Sector 7',
+        'Uttara Sector 8',
+        'Uttara Sector 9',
+        'Uttara Sector 10',
+        'Uttara Sector 11',
+        'Uttara Sector 12',
+        'Uttara Sector 13',
+        'Uttara Sector 14',
+        'Uttara Sector 15',
+        'Uttara Sector 16',
+        'Uttara Sector 17',
+        'Uttara Sector 18'
       ],
       message: 'Invalid area'
     },
@@ -215,7 +249,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Looking for Rent'],
+      values: ['Looking for Rent', 'Found Tenant', 'Owner Unreachable'],
       message: 'Invalid inventory status'
     }
   },
@@ -223,7 +257,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Family', 'Bachelor'],
+      values: ['Family', 'Bachelor', 'Women'],
       message: 'Invalid tenant type'
     }
   },
@@ -231,7 +265,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Residential'],
+      values: ['Residential', "Commercial"],
       message: 'Invalid property category'
     }
   },
@@ -239,7 +273,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Non-Furnished'],
+      values: ['Non-Furnished', 'Semi-Furnished', 'Furnished'],
       message: 'Invalid furnishing status'
     }
   },
