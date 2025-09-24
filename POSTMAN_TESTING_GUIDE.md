@@ -6,7 +6,7 @@
 
 #### 1. **CREATE Truck** 
 - **Method:** `POST`
-- **URL:** `http://localhost:4000/api/trucks`
+- **URL:** `http://localhost:4000/trucks`
 - **Headers:** `Content-Type: application/json`
 - **Body (JSON):**
 ```json
@@ -19,19 +19,19 @@
 
 #### 2. **GET All Trucks**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trucks`
+- **URL:** `http://localhost:4000/trucks`
 - **Headers:** None required
 
 #### 3. **GET Truck by ID**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trucks/{truck_id}`
-- **Example:** `http://localhost:4000/api/trucks/68d26e129f10e9b5c0031915`
+- **URL:** `http://localhost:4000/trucks/{truck_id}`
+- **Example:** `http://localhost:4000/trucks/68d26e129f10e9b5c0031915`
 - **Headers:** None required
 
 #### 4. **UPDATE Truck**
 - **Method:** `PUT`
-- **URL:** `http://localhost:4000/api/trucks/{truck_id}`
-- **Example:** `http://localhost:4000/api/trucks/68d26e129f10e9b5c0031915`
+- **URL:** `http://localhost:4000/trucks/{truck_id}`
+- **Example:** `http://localhost:4000/trucks/68d26e129f10e9b5c0031915`
 - **Headers:** `Content-Type: application/json`
 - **Body (JSON):**
 ```json
@@ -44,8 +44,8 @@
 
 #### 5. **DELETE Truck**
 - **Method:** `DELETE`
-- **URL:** `http://localhost:4000/api/trucks/{truck_id}`
-- **Example:** `http://localhost:4000/api/trucks/68d26e129f10e9b5c0031915`
+- **URL:** `http://localhost:4000/trucks/{truck_id}`
+- **Example:** `http://localhost:4000/trucks/68d26e129f10e9b5c0031915`
 - **Headers:** None required
 
 ---
@@ -54,7 +54,7 @@
 
 #### 1. **CREATE Trip**
 - **Method:** `POST`
-- **URL:** `http://localhost:4000/api/trips`
+- **URL:** `http://localhost:4000/trips`
 - **Headers:** `Content-Type: application/json`
 - **Body (JSON):**
 ```json
@@ -73,19 +73,19 @@
 
 #### 2. **GET All Trips**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trips`
+- **URL:** `http://localhost:4000/trips`
 - **Headers:** None required
 
 #### 3. **GET Trip by ID**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trips/{trip_id}`
-- **Example:** `http://localhost:4000/api/trips/68d26e129f10e9b5c0031916`
+- **URL:** `http://localhost:4000/trips/{trip_id}`
+- **Example:** `http://localhost:4000/trips/68d26e129f10e9b5c0031916`
 - **Headers:** None required
 
 #### 4. **UPDATE Trip**
 - **Method:** `PUT`
-- **URL:** `http://localhost:4000/api/trips/{trip_id}`
-- **Example:** `http://localhost:4000/api/trips/68d26e129f10e9b5c0031916`
+- **URL:** `http://localhost:4000/trips/{trip_id}`
+- **Example:** `http://localhost:4000/trips/68d26e129f10e9b5c0031916`
 - **Headers:** `Content-Type: application/json`
 - **Body (JSON):**
 ```json
@@ -104,8 +104,8 @@
 
 #### 5. **DELETE Trip**
 - **Method:** `DELETE`
-- **URL:** `http://localhost:4000/api/trips/{trip_id}`
-- **Example:** `http://localhost:4000/api/trips/68d26e129f10e9b5c0031916`
+- **URL:** `http://localhost:4000/trips/{trip_id}`
+- **Example:** `http://localhost:4000/trips/68d26e129f10e9b5c0031916`
 - **Headers:** None required
 
 ---
@@ -114,21 +114,21 @@
 
 #### 6. **GET Trips by Truck ID**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trips/truck/{truck_id}`
-- **Example:** `http://localhost:4000/api/trips/truck/68d26e129f10e9b5c0031915`
+- **URL:** `http://localhost:4000/trips/truck/{truck_id}`
+- **Example:** `http://localhost:4000/trips/truck/68d26e129f10e9b5c0031915`
 
 #### 7. **GET Trips by Date**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trips/date?date={YYYY-MM-DD}`
-- **Example:** `http://localhost:4000/api/trips/date?date=2024-01-15`
+- **URL:** `http://localhost:4000/trips/date?date={YYYY-MM-DD}`
+- **Example:** `http://localhost:4000/trips/date?date=2024-01-15`
 
 #### 8. **GET Trips by Time Slot**
 - **Method:** `GET`
-- **URL:** `http://localhost:4000/api/trips/timeslot/{time_slot}`
+- **URL:** `http://localhost:4000/trips/timeslot/{time_slot}`
 - **Examples:**
-  - `http://localhost:4000/api/trips/timeslot/Morning (8AM - 12PM)`
-  - `http://localhost:4000/api/trips/timeslot/Afternoon (12PM - 4PM)`
-  - `http://localhost:4000/api/trips/timeslot/Evening (4PM - 8PM)`
+  - `http://localhost:4000/trips/timeslot/Morning (8AM - 12PM)`
+  - `http://localhost:4000/trips/timeslot/Afternoon (12PM - 4PM)`
+  - `http://localhost:4000/trips/timeslot/Evening (4PM - 8PM)`
 
 ---
 
@@ -193,7 +193,7 @@ Copy-paste these into Postman for quick testing:
 
 **Create Truck:**
 ```
-POST http://localhost:4000/api/trucks
+POST http://localhost:4000/trucks
 Content-Type: application/json
 
 {
@@ -207,7 +207,7 @@ Content-Type: application/json
 
 **Create Trip:**
 ```
-POST http://localhost:4000/api/trips
+POST http://localhost:4000/trips
 Content-Type: application/json
 
 {
@@ -225,7 +225,7 @@ Content-Type: application/json
 
 **Update Trip:**
 ```
-PUT http://localhost:4000/api/trips/{trip_id}
+PUT http://localhost:4000/trips/{trip_id}
 Content-Type: application/json
 
 {
@@ -236,6 +236,6 @@ Content-Type: application/json
 
 **Delete Trip:**
 ```
-DELETE http://localhost:4000/api/trips/{trip_id}
+DELETE http://localhost:4000/trips/{trip_id}
 ```
 

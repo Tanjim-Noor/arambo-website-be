@@ -46,9 +46,9 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // API routes
-app.use('/api/properties', propertyRoutes);
-app.use('/api/trucks', truckRoutes);
-app.use('/api/trips', tripRoutes);
+app.use('/properties', propertyRoutes);
+app.use('/trucks', truckRoutes);
+app.use('/trips', tripRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -65,13 +65,30 @@ app.get('/', (req, res) => {
         update: 'PUT /properties/:id',
         stats: 'GET /properties/stats',
       },
+      trucks: {
+        create: 'POST /trucks',
+        list: 'GET /trucks',
+        getById: 'GET /trucks/:id',
+        update: 'PUT /trucks/:id',
+        delete: 'DELETE /trucks/:id',
+      },
+      trips: {
+        create: 'POST /trips',
+        list: 'GET /trips',
+        getById: 'GET /trips/:id',
+        update: 'PUT /trips/:id',
+        delete: 'DELETE /trips/:id',
+        byTruck: 'GET /trips/truck/:truckId',
+        byDate: 'GET /trips/date?date={YYYY-MM-DD}',
+        byTimeSlot: 'GET /trips/timeslot/{timeSlot}',
+      },
     },
     documentation: 'See README.md for detailed API documentation',
   });
 });
 
 // API info endpoint
-app.get('/api', (req, res) => {
+app.get('/info', (req, res) => {
   res.json({
     api: 'Arambo Property API',
     version: '1.0.0',
@@ -98,7 +115,7 @@ const startServer = async () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`🔗 CORS enabled for: ${CORS_ORIGIN}`);
-      console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
+      console.log(`📡 API endpoints available at http://localhost:${PORT}`);
       
       if (isDevelopment()) {
         console.log(`🔧 Development mode - detailed logging enabled`);

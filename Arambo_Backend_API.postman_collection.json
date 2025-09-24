@@ -23,11 +23,11 @@
               "raw": "{\n  \"plateNumber\": \"ABC-1234\",\n  \"driverName\": \"John Doe\",\n  \"driverPhone\": \"01712345678\",\n  \"capacity\": \"5 tons\",\n  \"truckType\": \"Covered Van\"\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trucks",
+              "raw": "http://localhost:4000/trucks",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks"]
+              "path": ["trucks"]
             }
           }
         },
@@ -36,11 +36,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trucks",
+              "raw": "http://localhost:4000/trucks",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks"]
+              "path": ["trucks"]
             }
           }
         },
@@ -49,11 +49,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trucks/{{truck_id}}",
+              "raw": "http://localhost:4000/trucks/{{truck_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks", "{{truck_id}}"]
+              "path": ["trucks", "{{truck_id}}"]
             }
           }
         },
@@ -72,11 +72,11 @@
               "raw": "{\n  \"modelNumber\": \"T-999\",\n  \"height\": 5.0,\n  \"isOpen\": false\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trucks/{{truck_id}}",
+              "raw": "http://localhost:4000/trucks/{{truck_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks", "{{truck_id}}"]
+              "path": ["trucks", "{{truck_id}}"]
             }
           }
         },
@@ -85,11 +85,11 @@
           "request": {
             "method": "DELETE",
             "url": {
-              "raw": "http://localhost:4000/api/trucks/{{truck_id}}",
+              "raw": "http://localhost:4000/trucks/{{truck_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trucks", "{{truck_id}}"]
+              "path": ["trucks", "{{truck_id}}"]
             }
           }
         }
@@ -113,11 +113,11 @@
               "raw": "{\n  \"name\": \"Alice Johnson\",\n  \"phone\": \"01712345678\",\n  \"email\": \"alice@example.com\",\n  \"productType\": \"Fragile\",\n  \"pickupLocation\": \"123 Main Street, Dhaka\",\n  \"dropOffLocation\": \"456 Park Avenue, Chittagong\",\n  \"preferredDate\": \"2024-01-15\",\n  \"preferredTimeSlot\": \"Morning (8AM - 12PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trips",
+              "raw": "http://localhost:4000/trips",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips"]
+              "path": ["trips"]
             }
           }
         },
@@ -126,11 +126,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips",
+              "raw": "http://localhost:4000/trips",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips"]
+              "path": ["trips"]
             }
           }
         },
@@ -139,11 +139,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips/{{trip_id}}",
+              "raw": "http://localhost:4000/trips/{{trip_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "{{trip_id}}"]
+              "path": ["trips", "{{trip_id}}"]
             }
           }
         },
@@ -162,11 +162,11 @@
               "raw": "{\n  \"name\": \"Alice Johnson Updated\",\n  \"phone\": \"01987654321\",\n  \"email\": \"alice.updated@example.com\",\n  \"productType\": \"Non-Perishable Goods\",\n  \"pickupLocation\": \"789 Updated Street, Dhaka\",\n  \"dropOffLocation\": \"321 New Avenue, Sylhet\",\n  \"preferredDate\": \"2024-02-20\",\n  \"preferredTimeSlot\": \"Evening (4PM - 8PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trips/{{trip_id}}",
+              "raw": "http://localhost:4000/trips/{{trip_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "{{trip_id}}"]
+              "path": ["trips", "{{trip_id}}"]
             }
           }
         },
@@ -175,11 +175,11 @@
           "request": {
             "method": "DELETE",
             "url": {
-              "raw": "http://localhost:4000/api/trips/{{trip_id}}",
+              "raw": "http://localhost:4000/trips/{{trip_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "{{trip_id}}"]
+              "path": ["trips", "{{trip_id}}"]
             }
           }
         },
@@ -188,11 +188,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips/truck/{{truck_id}}",
+              "raw": "http://localhost:4000/trips/truck/{{truck_id}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "truck", "{{truck_id}}"]
+              "path": ["trips", "truck", "{{truck_id}}"]
             }
           }
         },
@@ -201,11 +201,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips/date?date=2024-01-15",
+              "raw": "http://localhost:4000/trips/date?date=2024-01-15",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "date"],
+              "path": ["trips", "date"],
               "query": [
                 {
                   "key": "date",
@@ -220,11 +220,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips/timeslot/Morning (8AM - 12PM)",
+              "raw": "http://localhost:4000/trips/timeslot/Morning (8AM - 12PM)",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "timeslot", "Morning (8AM - 12PM)"]
+              "path": ["trips", "timeslot", "Morning (8AM - 12PM)"]
             }
           }
         },
@@ -233,11 +233,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips/timeslot/Afternoon (12PM - 4PM)",
+              "raw": "http://localhost:4000/trips/timeslot/Afternoon (12PM - 4PM)",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "timeslot", "Afternoon (12PM - 4PM)"]
+              "path": ["trips", "timeslot", "Afternoon (12PM - 4PM)"]
             }
           }
         },
@@ -246,11 +246,11 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "http://localhost:4000/api/trips/timeslot/Evening (4PM - 8PM)",
+              "raw": "http://localhost:4000/trips/timeslot/Evening (4PM - 8PM)",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips", "timeslot", "Evening (4PM - 8PM)"]
+              "path": ["trips", "timeslot", "Evening (4PM - 8PM)"]
             }
           }
         }
@@ -274,11 +274,11 @@
               "raw": "{\n  \"name\": \"Test Invalid Product\",\n  \"phone\": \"01712345678\",\n  \"email\": \"test@example.com\",\n  \"productType\": \"Invalid Type\",\n  \"pickupLocation\": \"Test Location\",\n  \"dropOffLocation\": \"Test Drop\",\n  \"preferredDate\": \"2024-01-15\",\n  \"preferredTimeSlot\": \"Morning (8AM - 12PM)\",\n  \"truckId\": \"{{truck_id}}\"\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trips",
+              "raw": "http://localhost:4000/trips",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips"]
+              "path": ["trips"]
             }
           }
         },
@@ -297,11 +297,11 @@
               "raw": "{\n  \"name\": \"Test Invalid Time\",\n  \"phone\": \"01712345678\",\n  \"email\": \"test@example.com\",\n  \"productType\": \"Other\",\n  \"pickupLocation\": \"Test Location\",\n  \"dropOffLocation\": \"Test Drop\",\n  \"preferredDate\": \"2024-01-15\",\n  \"preferredTimeSlot\": \"Night\",\n  \"truckId\": \"{{truck_id}}\"\n}"
             },
             "url": {
-              "raw": "http://localhost:4000/api/trips",
+              "raw": "http://localhost:4000/trips",
               "protocol": "http",
               "host": ["localhost"],
               "port": "4000",
-              "path": ["api", "trips"]
+              "path": ["trips"]
             }
           }
         }

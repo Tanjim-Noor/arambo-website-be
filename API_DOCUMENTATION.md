@@ -4,7 +4,7 @@
 
 The Arambo Property API is a RESTful service for managing real estate property listings. This API supports full CRUD operations, advanced filtering, search functionality, and pagination for efficient data retrieval suitable for infinite scroll implementations.
 
-**Base URL:** `http://localhost:3000`
+**Base URL:** `http://localhost:4000`
 
 **Current Version:** 1.0.0
 

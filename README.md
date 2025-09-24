@@ -245,19 +245,19 @@ The project includes automated scripts for database management:
 ## �📡 API Endpoints
 
 ### Base URL
-- Local: `http://localhost:4000/api`
-- Docker: `http://localhost:4000/api`
+- Local: `http://localhost:4000`
+- Docker: `http://localhost:4000`
 
 ### Endpoints
 
 #### Health Check
 ```http
-GET /api/properties/health
+GET /properties/health
 ```
 
 #### Create Property
 ```http
-POST /api/properties
+POST /properties
 Content-Type: application/json
 
 {
@@ -281,7 +281,7 @@ Content-Type: application/json
 
 #### Get Properties
 ```http
-GET /api/properties?category=sale&propertyType=villa&bedrooms=4&limit=10
+GET /properties?category=sale&propertyType=villa&bedrooms=4&limit=10
 ```
 
 **Query Parameters:**
@@ -298,12 +298,12 @@ GET /api/properties?category=sale&propertyType=villa&bedrooms=4&limit=10
 
 #### Get Property by ID
 ```http
-GET /api/properties/:id
+GET /properties/:id
 ```
 
 #### Update Property
 ```http
-PUT /api/properties/:id
+PUT /properties/:id
 Content-Type: application/json
 
 {
@@ -314,7 +314,7 @@ Content-Type: application/json
 
 #### Get Property Statistics
 ```http
-GET /api/properties/stats
+GET /properties/stats
 ```
 
 ## 🧪 Testing
