@@ -51,8 +51,4 @@ const TruckSchema = new Schema<ITruck>({
   }
 });
 
-TruckSchema.index({ modelNumber: 1 });
-TruckSchema.index({ isOpen: 1 });
-TruckSchema.index({ height: 1 });
-
 export const Truck = mongoose.model<ITruck>('Truck', TruckSchema);

@@ -313,7 +313,7 @@ PropertySchema.index({ listingType: 1, category: 1 });
 PropertySchema.index({ location: 1, listingType: 1 });
 PropertySchema.index({ bedrooms: 1, size: 1 });
 PropertySchema.index({ firstOwner: 1, onLoan: 1 });
-PropertySchema.index({ isConfirmed: 1 }); // Index for confirmed properties
+// PropertySchema.index({ isConfirmed: 1 }); // Index for confirmed properties - removed duplicate
 PropertySchema.index({ createdAt: -1 }); // For sorting by creation date
 PropertySchema.index({ email: 1, phone: 1 }); // Composite index for contact info
 PropertySchema.index({ area: 1, propertyCategory: 1 }); // New indexes

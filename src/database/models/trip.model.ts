@@ -116,7 +116,7 @@ const TripSchema = new Schema<ITrip>({
 TripSchema.index({ name: 1, email: 1 });
 TripSchema.index({ preferredDate: 1, preferredTimeSlot: 1 });
 TripSchema.index({ truckId: 1, preferredDate: 1 });
-TripSchema.index({ dropOffLocation: 1 });
+// TripSchema.index({ dropOffLocation: 1 }); // Removed duplicate index
 
 // Virtual to populate truck details
 TripSchema.virtual('truck', {
