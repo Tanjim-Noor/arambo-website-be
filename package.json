@@ -21,6 +21,9 @@
     "db:seed:all": "npm run seed:all",
     "db:reset": "ts-node src/database/scripts/reset-database.ts",
     "db:reset:seed": "ts-node src/database/scripts/reset-database.ts seed",
+    "db:reset:properties": "ts-node src/database/scripts/reset-database.ts properties",
+    "db:reset:trucks": "ts-node src/database/scripts/reset-database.ts trucks",
+    "db:reset:trips": "ts-node src/database/scripts/reset-database.ts trips",
     "migrate:create": "migrate-mongo create",
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down",
@@ -39,6 +42,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/mongoose": "^5.11.96",
+    "axios": "^1.12.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "dotenv-expand": "^12.0.3",

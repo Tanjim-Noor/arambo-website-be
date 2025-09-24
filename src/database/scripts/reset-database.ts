@@ -21,6 +21,51 @@ export const resetDatabase = async (): Promise<void> => {
   }
 };
 
+export const resetPropertiesDatabase = async (): Promise<void> => {
+  try {
+    console.log('Starting properties database reset...');
+    await connectToDatabase();
+    console.log('Clearing properties collection...');
+    
+    await Property.collection.drop().catch(() => console.log('Property collection not found'));
+
+    console.log('Properties database reset completed!');
+  } catch (error) {
+    console.error('Error resetting properties database:', error);
+    throw error;
+  }
+};
+
+export const resetTrucksDatabase = async (): Promise<void> => {
+  try {
+    console.log('Starting trucks database reset...');
+    await connectToDatabase();
+    console.log('Clearing trucks collection...');
+    
+    await Truck.collection.drop().catch(() => console.log('Truck collection not found'));
+
+    console.log('Trucks database reset completed!');
+  } catch (error) {
+    console.error('Error resetting trucks database:', error);
+    throw error;
+  }
+};
+
+export const resetTripsDatabase = async (): Promise<void> => {
+  try {
+    console.log('Starting trips database reset...');
+    await connectToDatabase();
+    console.log('Clearing trips collection...');
+    
+    await Trip.collection.drop().catch(() => console.log('Trip collection not found'));
+
+    console.log('Trips database reset completed!');
+  } catch (error) {
+    console.error('Error resetting trips database:', error);
+    throw error;
+  }
+};
+
 export const resetAndSeed = async (): Promise<void> => {
   try {
     await resetDatabase();
@@ -46,6 +91,12 @@ const runReset = async (): Promise<void> => {
     
     if (resetType === 'seed') {
       await resetAndSeed();
+    } else if (resetType === 'properties') {
+      await resetPropertiesDatabase();
+    } else if (resetType === 'trucks') {
+      await resetTrucksDatabase();
+    } else if (resetType === 'trips') {
+      await resetTripsDatabase();
     } else {
       await resetDatabase();
     }
