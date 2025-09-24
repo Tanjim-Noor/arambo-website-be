@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { ListingType, Category, PropertyType } from '../../validators/property.validator';
+import { ListingType, Category, PropertyType, Area } from '../../validators/property.validator';
 
 // Interface for the Property document
 export interface IProperty extends Document {
@@ -28,7 +28,7 @@ export interface IProperty extends Document {
   houseId?: string;
   streetAddress?: string;
   landmark?: string;
-  area?: string;
+  area?: Area;
   listingId?: string;
   inventoryStatus?: string;
   tenantType?: string;
@@ -183,7 +183,27 @@ const PropertySchema = new Schema<IProperty>({
   area: {
     type: String,
     trim: true,
-    maxlength: [200, 'Area must be less than 200 characters'],
+    enum: {
+      values: [
+        'Aftabnagar',
+        'Banasree',
+        'Bashundhara Residential',
+        'DIT & Merul Badda',
+        'Dhanmondi',
+        'Gudaraghat',
+        'Gulshan 1',
+        'Gulshan 2',
+        'Middle Badda',
+        'Mirpur DOHs',
+        'Niketan',
+        'North Badda',
+        'Shahjadpur Beside & near Suvastu',
+        'Shahjadpur Lakeside',
+        'South Badda',
+        'Uttara Sector 13'
+      ],
+      message: 'Invalid area'
+    },
     index: true
   },
   listingId: {
@@ -195,7 +215,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Looking for Rent', 'Looking for Sale', 'Looking for Lease', 'Available', 'Rented', 'Sold', 'Leased', 'Unavailable'],
+      values: ['Looking for Rent'],
       message: 'Invalid inventory status'
     }
   },
@@ -203,7 +223,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Family', 'Bachelor', 'Office', 'Women', 'Commercial', 'Any'],
+      values: ['Family', 'Bachelor'],
       message: 'Invalid tenant type'
     }
   },
@@ -211,7 +231,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Residential', 'Commercial'],
+      values: ['Residential'],
       message: 'Invalid property category'
     }
   },
@@ -219,7 +239,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Furnished', 'Semi-Furnished', 'Non-Furnished'],
+      values: ['Non-Furnished'],
       message: 'Invalid furnishing status'
     }
   },

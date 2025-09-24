@@ -178,11 +178,19 @@ db.properties.createIndex({
 ### Database Seeding
 
 ```bash
-# Seed with sample data
+# Seed with sample data (properties only)
 npm run seed
 
-# Or use the service directly
-npm run db:seed
+# Seed individual collections
+npm run db:seed           # Seed properties
+npm run db:seed:trucks    # Seed trucks
+npm run db:seed:trips     # Seed trips
+npm run db:seed:all       # Seed all collections
+
+# Alternative commands
+npm run seed:trucks       # Seed trucks
+npm run seed:trips        # Seed trips
+npm run seed:all          # Seed all collections
 ```
 
 ## � Database Migrations
@@ -219,6 +227,11 @@ npm run db:reset:seed
 
 # Or just reset without seeding
 npm run db:reset
+
+# Reset individual collections
+npm run db:reset:properties    # Reset only properties collection
+npm run db:reset:trucks        # Reset only trucks collection
+npm run db:reset:trips         # Reset only trips collection
 
 # Then seed separately if needed
 npm run db:seed

@@ -23,34 +23,40 @@ export const CategoryEnum = z.enum([
 
 // New enums for the additional fields
 export const InventoryStatusEnum = z.enum([
-  'Looking for Rent',
-  'Looking for Sale', 
-  'Looking for Lease',
-  'Available',
-  'Rented',
-  'Sold',
-  'Leased',
-  'Unavailable'
+  'Looking for Rent'
 ]);
 
 export const TenantTypeEnum = z.enum([
   'Family',
-  'Bachelor', 
-  'Office',
-  'Women',
-  'Commercial',
-  'Any'
+  'Bachelor'
 ]);
 
 export const PropertyCategoryEnum = z.enum([
-  'Residential',
-  'Commercial',
+  'Residential'
 ]);
 
 export const FurnishingStatusEnum = z.enum([
-  'Furnished',
-  'Semi-Furnished',
   'Non-Furnished'
+]);
+
+// Area enum with areas from CSV data
+export const AreaEnum = z.enum([
+  'Aftabnagar',
+  'Banasree',
+  'Bashundhara Residential',
+  'DIT & Merul Badda',
+  'Dhanmondi',
+  'Gudaraghat',
+  'Gulshan 1',
+  'Gulshan 2',
+  'Middle Badda',
+  'Mirpur DOHs',
+  'Niketan',
+  'North Badda',
+  'Shahjadpur Beside & near Suvastu',
+  'Shahjadpur Lakeside',
+  'South Badda',
+  'Uttara Sector 13'
 ]);
 
 // Base property schema with all required fields
@@ -78,7 +84,7 @@ export const PropertySchema = z.object({
   houseId: z.string().max(50, 'House ID must be less than 50 characters').optional(),
   streetAddress: z.string().max(500, 'Street address must be less than 500 characters').optional(),
   landmark: z.string().max(300, 'Landmark must be less than 300 characters').optional(),
-  area: z.string().max(200, 'Area must be less than 200 characters').optional(),
+  area: AreaEnum.optional(),
   listingId: z.string().max(50, 'Listing ID must be less than 50 characters').optional(),
   inventoryStatus: InventoryStatusEnum.optional(),
   tenantType: TenantTypeEnum.optional(),
@@ -123,7 +129,7 @@ export const PropertyFiltersSchema = z.object({
   isConfirmed: z.string().transform((val) => val === 'true').optional(),
   
   // New filter fields
-  area: z.string().optional(),
+  area: AreaEnum.optional(),
   inventoryStatus: InventoryStatusEnum.optional(),
   tenantType: TenantTypeEnum.optional(),
   propertyCategory: PropertyCategoryEnum.optional(),
@@ -183,3 +189,4 @@ export type InventoryStatus = z.infer<typeof InventoryStatusEnum>;
 export type TenantType = z.infer<typeof TenantTypeEnum>;
 export type PropertyCategory = z.infer<typeof PropertyCategoryEnum>;
 export type FurnishingStatus = z.infer<typeof FurnishingStatusEnum>;
+export type Area = z.infer<typeof AreaEnum>;
