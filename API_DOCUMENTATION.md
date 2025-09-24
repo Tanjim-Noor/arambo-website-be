@@ -134,7 +134,8 @@ Retrieve property listings with optional filtering and pagination.
 | `page` | integer | Page number (default: 1) | `?page=2` |
 | `limit` | integer | Items per page (default: 10, max: 100) | `?limit=20` |
 | `category` | string | Property category | `?category=sale` |
-| `propertyType` | string | Type of property | `?propertyType=apartment` |
+| `listingType` | string | Listing type (for Rent, for Sale) | `?listingType=for%20Rent` |
+| `propertyType` | string | Property type (apartment, house, villa) | `?propertyType=apartment` |
 | `bedrooms` | integer | Number of bedrooms | `?bedrooms=3` |
 | `minSize` | integer | Minimum size in sq ft | `?minSize=1000` |
 | `maxSize` | integer | Maximum size in sq ft | `?maxSize=2000` |
@@ -157,7 +158,7 @@ Retrieve property listings with optional filtering and pagination.
 
 **Example Request:**
 ```
-GET /properties?page=1&limit=10&category=rent&propertyType=apartment&bedrooms=2&minRent=20000&maxRent=40000&location=mumbai
+GET /properties?page=1&limit=10&category=rent&listingType=for%20Rent&propertyType=apartment&bedrooms=2&minRent=20000&maxRent=40000&location=mumbai
 ```
 
 **Response:**
@@ -170,7 +171,8 @@ GET /properties?page=1&limit=10&category=rent&propertyType=apartment&bedrooms=2&
       "email": "john@example.com",
       "phone": "9876543210",
       "propertyName": "Sea View Apartment",
-      "propertyType": "apartment",
+      "listingType": "for Rent",
+      "propertyType": "Apartment",
       "size": 1200,
       "location": "Bandra West, Mumbai",
       "bedrooms": 2,
@@ -234,7 +236,8 @@ Create a new property listing.
   "email": "jane@example.com",
   "phone": "9876543210",
   "propertyName": "Modern Villa",
-  "propertyType": "villa",
+  "listingType": "for Sale",
+  "propertyType": "Villa",
   "size": 2500,
   "location": "Juhu, Mumbai",
   "bedrooms": 4,
@@ -310,10 +313,9 @@ Get aggregated statistics about all properties.
     "lease": 10
   },
   "byPropertyType": {
-    "apartment": 90,
-    "house": 30,
-    "villa": 20,
-    "commercial": 10
+    "Apartment": 90,
+    "House": 30,
+    "Villa": 20
   },
   "avgSize": 1450,
   "avgBedrooms": 2.3
@@ -331,7 +333,8 @@ interface Property {
   email: string;                   // Contact email
   phone: string;                   // Contact phone
   propertyName: string;            // Property title
-  propertyType: PropertyType;      // apartment, house, villa, etc.
+  listingType?: ListingType;       // for Rent, for Sale
+  propertyType?: PropertyType;     // apartment, house, villa
   size: number;                    // Size in square feet
   location: string;                // Property location
   bedrooms: number;                // Number of bedrooms
@@ -378,10 +381,11 @@ interface Property {
 ### Enums
 
 ```typescript
+// Listing types
+type ListingType = 'for Rent' | 'for Sale';
+
 // Property types
-type PropertyType = 'apartment' | 'house' | 'villa' | 'townhouse' | 
-                   'studio' | 'duplex' | 'penthouse' | 'commercial' | 
-                   'land' | 'other';
+type PropertyType = 'Apartment' | 'House' | 'Villa';
 
 // Categories
 type Category = 'sale' | 'rent' | 'lease' | 'buy';

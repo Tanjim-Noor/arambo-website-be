@@ -54,6 +54,11 @@ export class PropertyService {
         query.category = filters.category;
       }
 
+      // Listing type filter (formerly propertyType)
+      if (filters.listingType) {
+        query.listingType = filters.listingType;
+      }
+
       // Property type filter
       if (filters.propertyType) {
         query.propertyType = filters.propertyType;
@@ -391,6 +396,7 @@ export class PropertyService {
       email: property.email,
       phone: property.phone,
       propertyName: property.propertyName,
+      listingType: property.listingType,
       propertyType: property.propertyType,
       size: property.size,
       location: property.location,

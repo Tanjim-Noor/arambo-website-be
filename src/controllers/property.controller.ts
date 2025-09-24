@@ -233,8 +233,12 @@ export const getPropertyStats = async (
       let totalBedrooms = 0;
 
       properties.forEach(property => {
-        categoryCounts[property.category] = (categoryCounts[property.category] || 0) + 1;
-        typeCounts[property.propertyType] = (typeCounts[property.propertyType] || 0) + 1;
+        if (property.category) {
+          categoryCounts[property.category] = (categoryCounts[property.category] || 0) + 1;
+        }
+        if (property.propertyType) {
+          typeCounts[property.propertyType] = (typeCounts[property.propertyType] || 0) + 1;
+        }
         totalSize += property.size;
         totalBedrooms += property.bedrooms;
       });
