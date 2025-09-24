@@ -9,7 +9,12 @@ export const createTruckSchema = z.object({
   height: z.number()
     .min(1, 'Height must be greater than 0')
     .max(100, 'Height seems unrealistic'),
-  isOpen: z.boolean()
+  isOpen: z.boolean(),
+  truck: z.string()
+    .max(500, 'Truck description must be less than 500 characters')
+    .trim()
+    .optional()
+    .default('')
 });
 
 // Schema for updating a truck
