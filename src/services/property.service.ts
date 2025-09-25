@@ -177,6 +177,19 @@ export class PropertyService {
         query.onLoan = filters.onLoan;
       }
 
+      // Apartment type filter
+      if (filters.apartmentType) {
+        query.apartmentType = { 
+          $regex: filters.apartmentType, 
+          $options: 'i' 
+        };
+      }
+
+      // Verified filter
+      if (filters.isVerified !== undefined) {
+        query.isVerified = filters.isVerified;
+      }
+
       console.log('MongoDB query filters:', JSON.stringify(query, null, 2));
       console.log('Pagination:', { page, limit, skip });
 
@@ -452,6 +465,8 @@ export class PropertyService {
       bathroomConditionsScore: property.bathroomConditionsScore,
       coverImage: property.coverImage,
       otherImages: property.otherImages,
+      apartmentType: property.apartmentType,
+      isVerified: property.isVerified,
       
       createdAt: property.createdAt?.toISOString() || new Date().toISOString(),
       updatedAt: property.updatedAt?.toISOString() || new Date().toISOString(),

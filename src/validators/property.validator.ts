@@ -142,6 +142,8 @@ export const PropertySchema = z.object({
   bathroomConditionsScore: z.number().min(1, 'Bathroom conditions score must be between 1-10').max(10, 'Bathroom conditions score must be between 1-10').optional(),
   coverImage: z.string().max(500, 'Cover image URL must be less than 500 characters').optional(),
   otherImages: z.array(z.string()).max(20, 'Cannot have more than 20 images').optional(),
+  apartmentType: z.string().max(100, 'Apartment type must be less than 100 characters').optional(),
+  isVerified: z.boolean().default(false),
 });
 
 // Create property request schema (for POST requests)
@@ -199,6 +201,8 @@ export const PropertyFiltersSchema = z.object({
   floor: z.string().transform((val) => parseInt(val, 10)).optional(),
   houseId: z.string().optional(),
   listingId: z.string().optional(),
+  apartmentType: z.string().optional(),
+  isVerified: z.string().transform((val) => val === 'true').optional(),
 });
 
 // Response schemas
