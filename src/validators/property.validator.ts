@@ -18,7 +18,7 @@ export const PropertyTypeEnum = z.enum([
 export const CategoryEnum = z.enum([
   'Furnished',
   'Semi-Furnished',
-  'Unfurnished'
+  'Non-Furnished'
 ]);
 
 // New enums for the additional fields
@@ -40,7 +40,7 @@ export const PropertyCategoryEnum = z.enum([
 ]);
 
 export const FurnishingStatusEnum = z.enum([
-  'Unfurnished',
+  'Non-Furnished',
   'Semi-Furnished',
   'Furnished'
 ]);

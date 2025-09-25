@@ -146,7 +146,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     required: [true, 'Category is required'],
     enum: {
-      values: ['Furnished', 'Semi-Furnished', 'Unfurnished'],
+      values: ['Furnished', 'Semi-Furnished', 'Non-Furnished'],
       message: 'Invalid category'
     },
     index: true
@@ -290,7 +290,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Unfurnished', 'Semi-Furnished', 'Furnished'],
+      values: ['Non-Furnished', 'Semi-Furnished', 'Furnished'],
       message: 'Invalid furnishing status'
     }
   },
