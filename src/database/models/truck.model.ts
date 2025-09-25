@@ -4,7 +4,7 @@ export interface ITruck extends Document {
   modelNumber: string;
   height: number;
   isOpen: boolean;
-  truck: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -30,11 +30,11 @@ const TruckSchema = new Schema<ITruck>({
     required: [true, 'Truck open/closed status is required'],
     index: true
   },
-  truck: {
+  description: {
     type: String,
     required: false,
     trim: true,
-    maxlength: [500, 'Truck description must be less than 500 characters'],
+    maxlength: [500, 'Description must be less than 500 characters'],
     default: ''
   }
 }, {

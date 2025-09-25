@@ -1,0 +1,267 @@
+{
+  "info": {
+    "name": "Furniture API Testing Collection",
+    "description": "Complete collection for testing Furniture CRUD operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture/health",
+          "host": ["{{base_url}}"],
+          "path": ["furniture", "health"]
+        }
+      }
+    },
+    {
+      "name": "Get Furniture Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture/stats",
+          "host": ["{{base_url}}"],
+          "path": ["furniture", "stats"]
+        }
+      }
+    },
+    {
+      "name": "Create Furniture Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"01712345678\",\n  \"furnitureType\": \"Commercial Furniture\",\n  \"paymentType\": \"EMI Plan\",\n  \"furnitureCondition\": \"New Furniture\",\n  \"price\": 85000,\n  \"description\": \"Modern executive desk with built-in storage\",\n  \"location\": \"Gulshan, Dhaka\",\n  \"brand\": \"Hatil\",\n  \"furnitureModel\": \"EXE-2024\",\n  \"quantity\": 2,\n  \"isAvailable\": true,\n  \"images\": []\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/furniture",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"]
+        }
+      }
+    },
+    {
+      "name": "Get All Furniture Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"]
+        }
+      }
+    },
+    {
+      "name": "Get Furniture with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture?furnitureType=Commercial Furniture&minPrice=50000&maxPrice=100000&isAvailable=true&page=1&limit=10&sortBy=price&sortOrder=desc",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"],
+          "query": [
+            {
+              "key": "furnitureType",
+              "value": "Commercial Furniture"
+            },
+            {
+              "key": "minPrice",
+              "value": "50000"
+            },
+            {
+              "key": "maxPrice",
+              "value": "100000"
+            },
+            {
+              "key": "isAvailable",
+              "value": "true"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "sortBy",
+              "value": "price"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Furniture by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture/{{furniture_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["furniture", "{{furniture_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Furniture Item",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 90000,\n  \"description\": \"Updated: Modern executive desk with premium storage and cable management\",\n  \"isAvailable\": false,\n  \"paymentType\": \"Instant Pay\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/furniture/{{furniture_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["furniture", "{{furniture_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Furniture Item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture/{{furniture_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["furniture", "{{furniture_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Filter by Residential Furniture",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture?furnitureType=Residential Furniture&sortBy=createdAt&sortOrder=desc",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"],
+          "query": [
+            {
+              "key": "furnitureType",
+              "value": "Residential Furniture"
+            },
+            {
+              "key": "sortBy",
+              "value": "createdAt"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Filter by Payment Type",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture?paymentType=EMI Plan",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"],
+          "query": [
+            {
+              "key": "paymentType",
+              "value": "EMI Plan"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Filter by Furniture Condition",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture?furnitureCondition=New Furniture",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"],
+          "query": [
+            {
+              "key": "furnitureCondition",
+              "value": "New Furniture"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search by Location",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture?location=Dhaka",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"],
+          "query": [
+            {
+              "key": "location",
+              "value": "Dhaka"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search by Brand",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/furniture?brand=Hatil",
+          "host": ["{{base_url}}"],
+          "path": ["furniture"],
+          "query": [
+            {
+              "key": "brand",
+              "value": "Hatil"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4000",
+      "type": "string"
+    },
+    {
+      "key": "furniture_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { Truck, ITruck } from '../database/models/truck.model';
 
 export class TruckService {
-  static async createTruck(data: { modelNumber: string; height: number; isOpen: boolean; truck?: string }): Promise<ITruck> {
+  static async createTruck(data: { modelNumber: string; height: number; isOpen: boolean }): Promise<ITruck> {
     const truck = new Truck(data);
     return await truck.save();
   }
@@ -14,12 +14,12 @@ export class TruckService {
     return await Truck.findById(id);
   }
 
-  static async updateTruck(id: string, data: Partial<{ modelNumber: string; height: number; isOpen: boolean; truck: string }>): Promise<ITruck | null> {
+  static async updateTruck(id: string, data: Partial<{ modelNumber: string; height: number; isOpen: boolean }>): Promise<ITruck | null> {
     // Filter out undefined/null values and only update existing fields
     const updateData: any = {};
     
     // Only allow updating fields that exist in the schema
-    const allowedFields = ['modelNumber', 'height', 'isOpen', 'truck'];
+    const allowedFields = ['modelNumber', 'height', 'isOpen'];
     
     Object.keys(data).forEach(key => {
       if (allowedFields.includes(key) && data[key as keyof typeof data] !== undefined && data[key as keyof typeof data] !== null) {
