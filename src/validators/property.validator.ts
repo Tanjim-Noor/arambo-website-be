@@ -40,7 +40,7 @@ export const PropertyCategoryEnum = z.enum([
 ]);
 
 export const FurnishingStatusEnum = z.enum([
-  'Non-Furnished',
+  'Unfurnished',
   'Semi-Furnished',
   'Furnished'
 ]);
@@ -153,6 +153,8 @@ export const PropertySchema = z.object({
   
   coverImage: z.string().max(500, 'Cover image URL must be less than 500 characters').optional(),
   otherImages: z.array(z.string()).max(20, 'Cannot have more than 20 images').optional(),
+  apartmentType: z.string().max(100, 'Apartment type must be less than 100 characters').optional(),
+  isVerified: z.boolean().default(false),
 });
 
 // Create property request schema (for POST requests)
@@ -210,6 +212,8 @@ export const PropertyFiltersSchema = z.object({
   floor: z.string().transform((val) => parseInt(val, 10)).optional(),
   houseId: z.string().optional(),
   listingId: z.string().optional(),
+  apartmentType: z.string().optional(),
+  isVerified: z.string().transform((val) => val === 'true').optional(),
   
   // Facility filter fields
   cctv: z.string().transform((val) => val === 'true').optional(),

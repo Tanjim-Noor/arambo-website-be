@@ -177,6 +177,19 @@ export class PropertyService {
         query.onLoan = filters.onLoan;
       }
 
+      // Apartment type filter
+      if (filters.apartmentType) {
+        query.apartmentType = { 
+          $regex: filters.apartmentType, 
+          $options: 'i' 
+        };
+      }
+
+      // Verified filter
+      if (filters.isVerified !== undefined) {
+        query.isVerified = filters.isVerified;
+      }
+
       // Facility filters
       if (filters.cctv !== undefined) {
         query.cctv = filters.cctv;
@@ -250,14 +263,14 @@ export class PropertyService {
   /**
    * Get a single property by ID
    */
-  static async getListingById(id: string, includeUnconfirmed: boolean = false): Promise<PropertyResponse | null> {
+  static async getListingById(id: string): Promise<PropertyResponse | null> {
     try {
       const query: FilterQuery<IProperty> = { _id: id };
       
       // Only show confirmed properties by default
-      if (!includeUnconfirmed) {
-        query.isConfirmed = true;
-      }
+      // if (!includeUnconfirmed) {
+      //   query.isConfirmed = true;
+      // }
       
       const property = await Property.findOne(query).lean().exec();
       
@@ -491,6 +504,8 @@ export class PropertyService {
       
       coverImage: property.coverImage,
       otherImages: property.otherImages,
+      apartmentType: property.apartmentType,
+      isVerified: property.isVerified,
       
       createdAt: property.createdAt?.toISOString() || new Date().toISOString(),
       updatedAt: property.updatedAt?.toISOString() || new Date().toISOString(),

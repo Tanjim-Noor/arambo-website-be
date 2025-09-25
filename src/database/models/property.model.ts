@@ -61,6 +61,8 @@ export interface IProperty extends Document {
   petsAllowed?: boolean;
   swimmingPool?: boolean;
   trainedGuard?: boolean;
+  apartmentType?: string;
+  isVerified?: boolean;
 }
 
 // Property schema definition
@@ -288,7 +290,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Non-Furnished', 'Semi-Furnished', 'Furnished'],
+      values: ['Unfurnished', 'Semi-Furnished', 'Furnished'],
       message: 'Invalid furnishing status'
     }
   },
@@ -388,6 +390,16 @@ const PropertySchema = new Schema<IProperty>({
       },
       message: 'Cannot have more than 20 images'
     }
+  },
+  apartmentType: {
+    type: String,
+    trim: true,
+    maxlength: [100, 'Apartment type must be less than 100 characters']
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+    index: true
   }
 }, {
   timestamps: true, // Automatically adds createdAt and updatedAt fields
