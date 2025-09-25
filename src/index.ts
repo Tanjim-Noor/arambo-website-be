@@ -7,6 +7,7 @@ import { connectToDatabase } from './database';
 import propertyRoutes from './routes/property.routes';
 import truckRoutes from './routes/truck.routes';
 import tripRoutes from './routes/trip.routes';
+import furnitureRoutes from './routes/furniture.routes';
 import { errorHandler, notFoundHandler, requestLogger } from './middlewares/error.middleware';
 
 // Create Express application
@@ -49,6 +50,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/properties', propertyRoutes);
 app.use('/trucks', truckRoutes);
 app.use('/trips', tripRoutes);
+app.use('/furniture', furnitureRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -81,6 +83,15 @@ app.get('/', (req, res) => {
         byTruck: 'GET /trips/truck/:truckId',
         byDate: 'GET /trips/date?date={YYYY-MM-DD}',
         byTimeSlot: 'GET /trips/timeslot/{timeSlot}',
+      },
+      furniture: {
+        create: 'POST /furniture',
+        list: 'GET /furniture',
+        getById: 'GET /furniture/:id',
+        update: 'PUT /furniture/:id',
+        delete: 'DELETE /furniture/:id',
+        stats: 'GET /furniture/stats',
+        health: 'GET /furniture/health',
       },
     },
     documentation: 'See README.md for detailed API documentation',
