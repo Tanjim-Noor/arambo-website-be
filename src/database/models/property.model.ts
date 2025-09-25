@@ -41,11 +41,26 @@ export interface IProperty extends Document {
   rent?: number;
   serviceCharge?: number;
   advanceMonths?: number;
+
+
+  coverImage?: string;
+  otherImages?: string[];
+
+
+  // Amenities 
   cleanHygieneScore?: number;
   sunlightScore?: number;
   bathroomConditionsScore?: number;
-  coverImage?: string;
-  otherImages?: string[];
+
+  // Facility boolean fields
+  cctv?: boolean;
+  communityHall?: boolean;
+  gym?: boolean;
+  masjid?: boolean;
+  parking?: boolean;
+  petsAllowed?: boolean;
+  swimmingPool?: boolean;
+  trainedGuard?: boolean;
   apartmentType?: string;
   isVerified?: boolean;
 }
@@ -327,6 +342,41 @@ const PropertySchema = new Schema<IProperty>({
     min: [1, 'Bathroom conditions score must be between 1-10'],
     max: [10, 'Bathroom conditions score must be between 1-10']
   },
+  
+  // Facility boolean fields
+  cctv: {
+    type: Boolean,
+    default: false
+  },
+  communityHall: {
+    type: Boolean,
+    default: false
+  },
+  gym: {
+    type: Boolean,
+    default: false
+  },
+  masjid: {
+    type: Boolean,
+    default: false
+  },
+  parking: {
+    type: Boolean,
+    default: false
+  },
+  petsAllowed: {
+    type: Boolean,
+    default: false
+  },
+  swimmingPool: {
+    type: Boolean,
+    default: false
+  },
+  trainedGuard: {
+    type: Boolean,
+    default: false
+  },
+  
   coverImage: {
     type: String,
     trim: true,
@@ -387,6 +437,13 @@ PropertySchema.index({ inventoryStatus: 1, tenantType: 1 });
 PropertySchema.index({ rent: 1, bedrooms: 1 });
 PropertySchema.index({ houseId: 1 });
 PropertySchema.index({ listingId: 1 });
+
+// Indexes for facility filters
+PropertySchema.index({ cctv: 1 });
+PropertySchema.index({ parking: 1 });
+PropertySchema.index({ gym: 1 });
+PropertySchema.index({ swimmingPool: 1 });
+PropertySchema.index({ trainedGuard: 1 });
 
 // Text index for search functionality
 PropertySchema.index({

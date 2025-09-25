@@ -190,6 +190,32 @@ export class PropertyService {
         query.isVerified = filters.isVerified;
       }
 
+      // Facility filters
+      if (filters.cctv !== undefined) {
+        query.cctv = filters.cctv;
+      }
+      if (filters.communityHall !== undefined) {
+        query.communityHall = filters.communityHall;
+      }
+      if (filters.gym !== undefined) {
+        query.gym = filters.gym;
+      }
+      if (filters.masjid !== undefined) {
+        query.masjid = filters.masjid;
+      }
+      if (filters.parking !== undefined) {
+        query.parking = filters.parking;
+      }
+      if (filters.petsAllowed !== undefined) {
+        query.petsAllowed = filters.petsAllowed;
+      }
+      if (filters.swimmingPool !== undefined) {
+        query.swimmingPool = filters.swimmingPool;
+      }
+      if (filters.trainedGuard !== undefined) {
+        query.trainedGuard = filters.trainedGuard;
+      }
+
       console.log('MongoDB query filters:', JSON.stringify(query, null, 2));
       console.log('Pagination:', { page, limit, skip });
 
@@ -460,9 +486,22 @@ export class PropertyService {
       rent: property.rent,
       serviceCharge: property.serviceCharge,
       advanceMonths: property.advanceMonths,
+      
+      
       cleanHygieneScore: property.cleanHygieneScore,
       sunlightScore: property.sunlightScore,
       bathroomConditionsScore: property.bathroomConditionsScore,
+      
+      // Facility boolean fields
+      cctv: property.cctv,
+      communityHall: property.communityHall,
+      gym: property.gym,
+      masjid: property.masjid,
+      parking: property.parking,
+      petsAllowed: property.petsAllowed,
+      swimmingPool: property.swimmingPool,
+      trainedGuard: property.trainedGuard,
+      
       coverImage: property.coverImage,
       otherImages: property.otherImages,
       apartmentType: property.apartmentType,

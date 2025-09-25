@@ -140,6 +140,17 @@ export const PropertySchema = z.object({
   cleanHygieneScore: z.number().min(1, 'Clean hygiene score must be between 1-10').max(10, 'Clean hygiene score must be between 1-10').optional(),
   sunlightScore: z.number().min(1, 'Sunlight score must be between 1-10').max(10, 'Sunlight score must be between 1-10').optional(),
   bathroomConditionsScore: z.number().min(1, 'Bathroom conditions score must be between 1-10').max(10, 'Bathroom conditions score must be between 1-10').optional(),
+  
+  // Facility boolean fields
+  cctv: z.boolean().default(false).optional(),
+  communityHall: z.boolean().default(false).optional(),
+  gym: z.boolean().default(false).optional(),
+  masjid: z.boolean().default(false).optional(),
+  parking: z.boolean().default(false).optional(),
+  petsAllowed: z.boolean().default(false).optional(),
+  swimmingPool: z.boolean().default(false).optional(),
+  trainedGuard: z.boolean().default(false).optional(),
+  
   coverImage: z.string().max(500, 'Cover image URL must be less than 500 characters').optional(),
   otherImages: z.array(z.string()).max(20, 'Cannot have more than 20 images').optional(),
   apartmentType: z.string().max(100, 'Apartment type must be less than 100 characters').optional(),
@@ -203,6 +214,16 @@ export const PropertyFiltersSchema = z.object({
   listingId: z.string().optional(),
   apartmentType: z.string().optional(),
   isVerified: z.string().transform((val) => val === 'true').optional(),
+  
+  // Facility filter fields
+  cctv: z.string().transform((val) => val === 'true').optional(),
+  communityHall: z.string().transform((val) => val === 'true').optional(),
+  gym: z.string().transform((val) => val === 'true').optional(),
+  masjid: z.string().transform((val) => val === 'true').optional(),
+  parking: z.string().transform((val) => val === 'true').optional(),
+  petsAllowed: z.string().transform((val) => val === 'true').optional(),
+  swimmingPool: z.string().transform((val) => val === 'true').optional(),
+  trainedGuard: z.string().transform((val) => val === 'true').optional(),
 });
 
 // Response schemas
