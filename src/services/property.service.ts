@@ -64,9 +64,28 @@ export class PropertyService {
         query.propertyType = filters.propertyType;
       }
 
-      // Bedrooms filter
+      // Bedrooms filter - supports exact match (3) or minimum (3+)
       if (filters.bedrooms !== undefined) {
-        query.bedrooms = filters.bedrooms;
+        if (typeof filters.bedrooms === 'object' && filters.bedrooms.type === 'min') {
+          query.bedrooms = { $gte: filters.bedrooms.value };
+        } else if (typeof filters.bedrooms === 'object' && filters.bedrooms.type === 'exact') {
+          query.bedrooms = filters.bedrooms.value;
+        } else {
+          // Fallback for backward compatibility
+          query.bedrooms = filters.bedrooms;
+        }
+      }
+
+      // Bathrooms filter - supports exact match (2) or minimum (2+)
+      if (filters.bathroom !== undefined) {
+        if (typeof filters.bathroom === 'object' && filters.bathroom.type === 'min') {
+          query.bathroom = { $gte: filters.bathroom.value };
+        } else if (typeof filters.bathroom === 'object' && filters.bathroom.type === 'exact') {
+          query.bathroom = filters.bathroom.value;
+        } else {
+          // Fallback for backward compatibility
+          query.bathroom = filters.bathroom;
+        }
       }
 
       // Size range filters

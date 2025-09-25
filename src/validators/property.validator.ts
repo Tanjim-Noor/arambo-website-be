@@ -160,7 +160,27 @@ export const PropertyFiltersSchema = z.object({
   category: CategoryEnum.optional(),
   listingType: ListingTypeEnum.optional(),
   propertyType: PropertyTypeEnum.optional(),
-  bedrooms: z.string().transform((val) => parseInt(val, 10)).optional(),
+  
+  // Enhanced bedroom filter - supports exact (3) or minimum (3+)
+  bedrooms: z.string().transform((val) => {
+    if (val.endsWith('+')) {
+      const num = parseInt(val.slice(0, -1), 10);
+      return { type: 'min', value: num };
+    }
+    const num = parseInt(val, 10);
+    return { type: 'exact', value: num };
+  }).optional(),
+  
+  // Enhanced bathroom filter - supports exact (2) or minimum (2+)
+  bathroom: z.string().transform((val) => {
+    if (val.endsWith('+')) {
+      const num = parseInt(val.slice(0, -1), 10);
+      return { type: 'min', value: num };
+    }
+    const num = parseInt(val, 10);
+    return { type: 'exact', value: num };
+  }).optional(),
+  
   minSize: z.string().transform((val) => parseInt(val, 10)).optional(),
   maxSize: z.string().transform((val) => parseInt(val, 10)).optional(),
   location: z.string().optional(),
