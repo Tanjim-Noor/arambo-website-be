@@ -51,17 +51,17 @@ export class PropertyService {
 
       // Category filter
       if (filters.category) {
-        query.category = filters.category;
+        query.category = Array.isArray(filters.category) ? { $in: filters.category } : filters.category;
       }
 
       // Listing type filter (formerly propertyType)
       if (filters.listingType) {
-        query.listingType = filters.listingType;
+        query.listingType = Array.isArray(filters.listingType) ? { $in: filters.listingType } : filters.listingType;
       }
 
       // Property type filter
       if (filters.propertyType) {
-        query.propertyType = filters.propertyType;
+        query.propertyType = Array.isArray(filters.propertyType) ? { $in: filters.propertyType } : filters.propertyType;
       }
 
       // Bedrooms filter - supports exact match (3) or minimum (3+)
@@ -107,32 +107,33 @@ export class PropertyService {
         };
       }
 
-      // Area filter (case-insensitive partial match)
+      // Area filter (exact match for enum values, supports multiple)
       if (filters.area) {
-        query.area = { 
-          $regex: filters.area, 
-          $options: 'i' 
-        };
+        if (Array.isArray(filters.area)) {
+          query.area = { $in: filters.area };
+        } else {
+          query.area = filters.area;
+        }
       }
 
       // Inventory status filter
       if (filters.inventoryStatus) {
-        query.inventoryStatus = filters.inventoryStatus;
+        query.inventoryStatus = Array.isArray(filters.inventoryStatus) ? { $in: filters.inventoryStatus } : filters.inventoryStatus;
       }
 
       // Tenant type filter
       if (filters.tenantType) {
-        query.tenantType = filters.tenantType;
+        query.tenantType = Array.isArray(filters.tenantType) ? { $in: filters.tenantType } : filters.tenantType;
       }
 
       // Property category filter
       if (filters.propertyCategory) {
-        query.propertyCategory = filters.propertyCategory;
+        query.propertyCategory = Array.isArray(filters.propertyCategory) ? { $in: filters.propertyCategory } : filters.propertyCategory;
       }
 
       // Furnishing status filter
       if (filters.furnishingStatus) {
-        query.furnishingStatus = filters.furnishingStatus;
+        query.furnishingStatus = Array.isArray(filters.furnishingStatus) ? { $in: filters.furnishingStatus } : filters.furnishingStatus;
       }
 
       // Rent range filters

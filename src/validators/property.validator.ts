@@ -170,9 +170,9 @@ export const PropertyFiltersSchema = z.object({
   limit: z.string().transform((val) => Math.min(PAGINATION.MAX_LIMIT, Math.max(1, parseInt(val, 10))) || PAGINATION.DEFAULT_LIMIT).optional(),
   
   // Filter parameters
-  category: CategoryEnum.optional(),
-  listingType: ListingTypeEnum.optional(),
-  propertyType: PropertyTypeEnum.optional(),
+  category: z.union([CategoryEnum, z.array(CategoryEnum)]).optional(),
+  listingType: z.union([ListingTypeEnum, z.array(ListingTypeEnum)]).optional(),
+  propertyType: z.union([PropertyTypeEnum, z.array(PropertyTypeEnum)]).optional(),
   
   // Enhanced bedroom filter - supports exact (3) or minimum (3+)
   bedrooms: z.string().transform((val) => {
@@ -202,11 +202,11 @@ export const PropertyFiltersSchema = z.object({
   isConfirmed: z.string().transform((val) => val === 'true').optional(),
   
   // New filter fields
-  area: AreaEnum.optional(),
-  inventoryStatus: InventoryStatusEnum.optional(),
-  tenantType: TenantTypeEnum.optional(),
-  propertyCategory: PropertyCategoryEnum.optional(),
-  furnishingStatus: FurnishingStatusEnum.optional(),
+  area: z.union([AreaEnum, z.array(AreaEnum)]).optional(),
+  inventoryStatus: z.union([InventoryStatusEnum, z.array(InventoryStatusEnum)]).optional(),
+  tenantType: z.union([TenantTypeEnum, z.array(TenantTypeEnum)]).optional(),
+  propertyCategory: z.union([PropertyCategoryEnum, z.array(PropertyCategoryEnum)]).optional(),
+  furnishingStatus: z.union([FurnishingStatusEnum, z.array(FurnishingStatusEnum)]).optional(),
   minRent: z.string().transform((val) => parseInt(val, 10)).optional(),
   maxRent: z.string().transform((val) => parseInt(val, 10)).optional(),
   floor: z.string().transform((val) => parseInt(val, 10)).optional(),
