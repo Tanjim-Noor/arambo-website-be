@@ -224,14 +224,14 @@ export class PropertyService {
   /**
    * Get a single property by ID
    */
-  static async getListingById(id: string, includeUnconfirmed: boolean = false): Promise<PropertyResponse | null> {
+  static async getListingById(id: string): Promise<PropertyResponse | null> {
     try {
       const query: FilterQuery<IProperty> = { _id: id };
       
       // Only show confirmed properties by default
-      if (!includeUnconfirmed) {
-        query.isConfirmed = true;
-      }
+      // if (!includeUnconfirmed) {
+      //   query.isConfirmed = true;
+      // }
       
       const property = await Property.findOne(query).lean().exec();
       
