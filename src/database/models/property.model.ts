@@ -275,7 +275,7 @@ const PropertySchema = new Schema<IProperty>({
     type: String,
     trim: true,
     enum: {
-      values: ['Non-Furnished', 'Semi-Furnished', 'Furnished'],
+      values: ['Unfurnished', 'Semi-Furnished', 'Furnished'],
       message: 'Invalid furnishing status'
     }
   },

@@ -40,7 +40,7 @@ export const PropertyCategoryEnum = z.enum([
 ]);
 
 export const FurnishingStatusEnum = z.enum([
-  'Non-Furnished',
+  'Unfurnished',
   'Semi-Furnished',
   'Furnished'
 ]);
