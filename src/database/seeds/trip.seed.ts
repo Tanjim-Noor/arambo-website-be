@@ -22,6 +22,7 @@ const getSampleTrips = async () => {
       preferredDate: new Date('2024-01-15'),
       preferredTimeSlot: 'Morning (8AM - 12PM)',
       additionalNotes: 'Please call before arriving',
+      truck: '',
       truckId: trucks[0]!._id
     },
     {
@@ -34,6 +35,7 @@ const getSampleTrips = async () => {
       preferredDate: new Date('2024-01-16'),
       preferredTimeSlot: 'Afternoon (12PM - 4PM)',
       additionalNotes: 'Handle with care - fragile items',
+      truck: '',
       truckId: trucks[1]!._id
     },
     {
@@ -46,6 +48,7 @@ const getSampleTrips = async () => {
       preferredDate: new Date('2024-01-17'),
       preferredTimeSlot: 'Morning (8AM - 12PM)',
       additionalNotes: 'Heavy load - ensure truck capacity',
+      truck: '',
       truckId: trucks[2]!._id
     },
     {
@@ -58,6 +61,7 @@ const getSampleTrips = async () => {
       preferredDate: new Date('2024-01-18'),
       preferredTimeSlot: 'Evening (4PM - 8PM)',
       additionalNotes: 'Small load, books and personal belongings',
+      truck: '',
       truckId: trucks[3]!._id
     },
     {
@@ -70,6 +74,7 @@ const getSampleTrips = async () => {
       preferredDate: new Date('2024-01-19'),
       preferredTimeSlot: 'Afternoon (12PM - 4PM)',
       additionalNotes: 'Confidential documents - secure transport needed',
+      truck: '',
       truckId: trucks[4]!._id
     },
     {
@@ -82,6 +87,7 @@ const getSampleTrips = async () => {
       preferredDate: new Date('2024-01-20'),
       preferredTimeSlot: 'Morning (8AM - 12PM)',
       additionalNotes: 'Need help with loading/unloading heavy items',
+      truck: '',
       truckId: trucks[5]!._id
     }
   ];

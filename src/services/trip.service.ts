@@ -11,6 +11,7 @@ export class TripService {
     preferredDate: Date;
     preferredTimeSlot: string;
     additionalNotes?: string;
+    truck?: string;
     truckId: string;
   }): Promise<ITrip> {
     const trip = new Trip(data);
@@ -18,11 +19,11 @@ export class TripService {
   }
 
   static async getTrips(): Promise<ITrip[]> {
-    return await Trip.find().populate('truck');
+    return await Trip.find().populate('truckDetails');
   }
 
   static async getTripById(id: string): Promise<ITrip | null> {
-    return await Trip.findById(id).populate('truck');
+    return await Trip.findById(id).populate('truckDetails');
   }
 
   static async updateTrip(
@@ -37,6 +38,7 @@ export class TripService {
       preferredDate: Date;
       preferredTimeSlot: string;
       additionalNotes: string;
+      truck: string;
       truckId: string;
     }>
   ): Promise<ITrip | null> {
@@ -44,7 +46,7 @@ export class TripService {
     const updateData: any = {};
     
     // Only allow updating fields that exist in the schema
-    const allowedFields = ['name', 'phone', 'email', 'productType', 'pickupLocation', 'dropOffLocation', 'preferredDate', 'preferredTimeSlot', 'additionalNotes', 'truckId'];
+    const allowedFields = ['name', 'phone', 'email', 'productType', 'pickupLocation', 'dropOffLocation', 'preferredDate', 'preferredTimeSlot', 'additionalNotes', 'truck', 'truckId'];
     
     Object.keys(data).forEach(key => {
       if (allowedFields.includes(key) && data[key as keyof typeof data] !== undefined && data[key as keyof typeof data] !== null) {
@@ -65,7 +67,7 @@ export class TripService {
         runValidators: true,
         upsert: false // Prevent creating new documents
       }
-    ).populate('truck');
+    ).populate('truckDetails');
   }
 
   static async deleteTrip(id: string): Promise<ITrip | null> {
@@ -73,7 +75,7 @@ export class TripService {
   }
 
   static async getTripsByTruck(truckId: string): Promise<ITrip[]> {
-    return await Trip.find({ truckId }).populate('truck');
+    return await Trip.find({ truckId }).populate('truckDetails');
   }
 
   static async getTripsByDate(date: Date): Promise<ITrip[]> {
@@ -87,11 +89,11 @@ export class TripService {
         $gte: startOfDay,
         $lte: endOfDay
       }
-    }).populate('truck');
+    }).populate('truckDetails');
   }
 
   static async getTripsByTimeSlot(timeSlot: string): Promise<ITrip[]> {
-    return await Trip.find({ preferredTimeSlot: timeSlot }).populate('truck');
+    return await Trip.find({ preferredTimeSlot: timeSlot }).populate('truckDetails');
   }
 }
 
