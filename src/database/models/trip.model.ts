@@ -10,6 +10,7 @@ export interface ITrip extends Document {
   preferredDate: Date;
   preferredTimeSlot: 'Morning (8AM - 12PM)' | 'Afternoon (12PM - 4PM)' | 'Evening (4PM - 8PM)';
   additionalNotes?: string;
+  truck: string;
   truckId: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -84,10 +85,16 @@ const TripSchema = new Schema<ITrip>({
     maxlength: [500, 'Additional notes must be less than 500 characters'],
     default: ''
   },
+  truck: {
+    type: String,
+    required: false,
+    trim: true,
+    default: ''
+  },
   truckId: {
     type: Schema.Types.ObjectId,
     ref: 'Truck',
-    required: [true, 'Truck ID is required'],
+    required: [false, 'Truck ID is required'],
     index: true
   }
 }, {
@@ -119,7 +126,7 @@ TripSchema.index({ truckId: 1, preferredDate: 1 });
 // TripSchema.index({ dropOffLocation: 1 }); // Removed duplicate index
 
 // Virtual to populate truck details
-TripSchema.virtual('truck', {
+TripSchema.virtual('truckDetails', {
   ref: 'Truck',
   localField: 'truckId',
   foreignField: '_id',

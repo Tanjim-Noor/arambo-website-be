@@ -40,6 +40,9 @@ export const createTripSchema = z.object({
     .max(300, 'Additional notes must be less than 300 characters')
     .trim()
     .optional(),
+  truck: z.string()
+    .trim()
+    .optional(),
   truckId: z.string()
     .min(1, 'Truck ID is required')
     .regex(/^[0-9a-fA-F]{24}$/, 'Invalid truck ID format')

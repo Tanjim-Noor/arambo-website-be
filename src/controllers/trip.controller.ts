@@ -1,16 +1,9 @@
 import { Request, Response } from 'express';
 import { TripService } from '../services/trip.service';
 
-export const createTrip = async (req: Request, res: Response) => {
-  try {
-    const trip = await TripService.createTrip(req.body);
-    res.status(201).json(trip);
-  } catch (err) {
-    res.status(400).json({ error: 'Failed to create trip', details: err });
-  }
-};
 
-export const getTrips = async (_req: Request, res: Response) => {
+
+export const getTrips = async (req: Request, res: Response) => {
   try {
     const trips = await TripService.getTrips();
     res.json(trips);
@@ -30,6 +23,15 @@ export const getTripById = async (req: Request, res: Response) => {
     else res.status(404).json({ error: 'Trip not found' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch trip', details: err });
+  }
+};
+
+export const createTrip = async (req: Request, res: Response) => {
+  try {
+    const trip = await TripService.createTrip(req.body);
+    res.status(201).json(trip);
+  } catch (err) {
+    res.status(400).json({ error: 'Failed to create trip', details: err });
   }
 };
 
