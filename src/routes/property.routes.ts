@@ -7,18 +7,19 @@ import {
   healthCheck,
   getPropertyStats,
 } from '../controllers/property.controller';
-import { requireApiKey } from '../middlewares/auth.middleware';
 
 const router = Router();
 
-// Public endpoints
+// Health check endpoint
 router.get('/health', healthCheck);
+
+// Property statistics endpoint
 router.get('/stats', getPropertyStats);
+
+// Property CRUD endpoints
+router.post('/', createProperty);
 router.get('/', getProperties);
 router.get('/:id', getPropertyById);
-
-// Private endpoints (require API key)
-router.post('/', requireApiKey, createProperty);
-router.put('/:id', requireApiKey, updateProperty);
+router.put('/:id', updateProperty);
 
 export default router;

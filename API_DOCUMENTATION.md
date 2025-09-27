@@ -23,33 +23,7 @@ The Arambo Property API is a RESTful service for managing real estate property l
 
 ## Authentication
 
-The API uses API key authentication for protected endpoints. 
-
-### Public Endpoints (No Authentication Required)
-- `GET` endpoints for viewing data (properties, trips, trucks, furniture)
-- Health check endpoints (`/health`)
-- Statistics endpoints (`/stats`)
-
-### Private Endpoints (Require API Key)
-- All `POST` endpoints (creating data)
-- All `PUT` endpoints (updating data) 
-- All `DELETE` endpoints (deleting data)
-
-### API Key Usage
-
-Include your API key in requests using one of these methods:
-
-**Option 1: X-API-Key Header**
-```bash
-curl -H "X-API-Key: your-api-key" http://localhost:4000/properties
-```
-
-**Option 2: Authorization Bearer Token**
-```bash
-curl -H "Authorization: Bearer your-api-key" http://localhost:4000/properties
-```
-
-**Default API Key for Development:** `arambo-admin-2024`
+Currently, the API does not require authentication. All endpoints are publicly accessible.
 
 ## Response Format
 

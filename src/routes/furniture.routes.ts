@@ -8,19 +8,20 @@ import {
   healthCheck,
   getFurnitureStatistics,
 } from '../controllers/furniture.controller';
-import { requireApiKey } from '../middlewares/auth.middleware';
 
 const router = Router();
 
-// Public endpoints
+// Health check endpoint
 router.get('/health', healthCheck);
+
+// Furniture statistics endpoint
 router.get('/stats', getFurnitureStatistics);
+
+// Furniture CRUD endpoints
+router.post('/', createFurnitureItem);
 router.get('/', getFurnitureItems);
 router.get('/:id', getFurnitureItem);
-
-// Private endpoints (require API key)
-router.post('/', requireApiKey, createFurnitureItem);
-router.put('/:id', requireApiKey, updateFurnitureItem);
-router.delete('/:id', requireApiKey, deleteFurnitureItem);
+router.put('/:id', updateFurnitureItem);
+router.delete('/:id', deleteFurnitureItem);
 
 export default router;
