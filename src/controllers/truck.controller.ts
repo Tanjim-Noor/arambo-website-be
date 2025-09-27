@@ -11,7 +11,7 @@ export const createTruck = async (req: Request, res: Response) => {
   }
 };
 
-export const getTrucks = async (req: Request, res: Response) => {
+export const getTrucks = async (_req: Request, res: Response) => {
   try {
     const trucks = await TruckService.getTrucks();
     res.json(trucks);
