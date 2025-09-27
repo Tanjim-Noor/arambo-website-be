@@ -507,6 +507,7 @@ export class PropertyService {
       otherImages: property.otherImages,
       apartmentType: property.apartmentType,
       isVerified: property.isVerified,
+      propertyValueHistory: property.propertyValueHistory || [],
       
       createdAt: property.createdAt?.toISOString() || new Date().toISOString(),
       updatedAt: property.updatedAt?.toISOString() || new Date().toISOString(),
