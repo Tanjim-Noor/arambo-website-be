@@ -63,6 +63,7 @@ export interface IProperty extends Document {
   trainedGuard?: boolean;
   apartmentType?: string;
   isVerified?: boolean;
+  propertyValueHistory?: { year: number; value: number; }[];
 }
 
 // Property schema definition
@@ -400,6 +401,30 @@ const PropertySchema = new Schema<IProperty>({
     type: Boolean,
     default: false,
     index: true
+  },
+  propertyValueHistory: {
+    type: [{
+      year: {
+        type: Number,
+        required: true,
+        min: [1900, 'Year must be valid'],
+        max: [new Date().getFullYear() + 20, 'Year cannot be too far in future']
+      },
+      value: {
+        type: Number,
+        required: true,
+        min: [0, 'Property value cannot be negative']
+      }
+    }],
+    default: [],
+    validate: {
+      validator: function(history: { year: number; value: number; }[]) {
+        // Ensure years are unique
+        const years = history.map(h => h.year);
+        return years.length === new Set(years).size;
+      },
+      message: 'Property value history cannot have duplicate years'
+    }
   }
 }, {
   timestamps: true, // Automatically adds createdAt and updatedAt fields

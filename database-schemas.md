@@ -356,6 +356,30 @@ The Property schema is the most complex, containing 50+ fields for comprehensive
     type: String,
     trim: true,
     maxlength: [100, 'Apartment type must be less than 100 characters']
+  },
+  propertyValueHistory: {
+    type: [{
+      year: {
+        type: Number,
+        required: true,
+        min: [1900, 'Year must be valid'],
+        max: [new Date().getFullYear() + 20, 'Year cannot be too far in future']
+      },
+      value: {
+        type: Number,
+        required: true,
+        min: [0, 'Property value cannot be negative']
+      }
+    }],
+    default: [],
+    validate: {
+      validator: function(history) {
+        // Ensure years are unique
+        const years = history.map(h => h.year);
+        return years.length === new Set(years).size;
+      },
+      message: 'Property value history cannot have duplicate years'
+    }
   }
 }
 ```

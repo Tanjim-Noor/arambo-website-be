@@ -155,6 +155,16 @@ export const PropertySchema = z.object({
   otherImages: z.array(z.string()).max(20, 'Cannot have more than 20 images').optional(),
   apartmentType: z.string().max(100, 'Apartment type must be less than 100 characters').optional(),
   isVerified: z.boolean().default(false),
+  propertyValueHistory: z.array(
+    z.object({
+      year: z.number().min(1900, 'Year must be valid').max(new Date().getFullYear() + 20, 'Year cannot be too far in future'),
+      value: z.number().min(0, 'Property value cannot be negative')
+    })
+  ).default([]).refine((history) => {
+    // Ensure years are unique
+    const years = history.map(h => h.year);
+    return years.length === new Set(years).size;
+  }, { message: 'Property value history cannot have duplicate years' }).optional(),
 });
 
 // Create property request schema (for POST requests)

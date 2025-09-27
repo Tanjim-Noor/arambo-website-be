@@ -209,6 +209,10 @@ GET /properties?page=1&limit=10&category=rent&listingType=for%20Rent&propertyTyp
         "https://example.com/image2.jpg",
         "https://example.com/image3.jpg"
       ],
+      "propertyValueHistory": [
+        { "year": 2024, "value": 3200000 },
+        { "year": 2025, "value": 3500000 }
+      ],
       "createdAt": "2025-09-22T10:00:00.000Z",
       "updatedAt": "2025-09-22T10:00:00.000Z"
     }
@@ -370,6 +374,7 @@ interface Property {
   bathroomConditionsScore?: number; // 1-10 rating
   coverImage?: string;           // Cover image URL
   otherImages?: string[];        // Additional image URLs
+  propertyValueHistory?: { year: number; value: number; }[]; // Historical property values by year
 
   // System fields
   id: string;                    // Auto-generated ID
