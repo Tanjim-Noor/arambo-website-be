@@ -94,7 +94,7 @@ const TripSchema = new Schema<ITrip>({
   truckId: {
     type: Schema.Types.ObjectId,
     ref: 'Truck',
-    required: [false, 'Truck ID is required'],
+    required: [true, 'Truck ID is required'],
     index: true
   }
 }, {

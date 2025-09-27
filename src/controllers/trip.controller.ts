@@ -19,10 +19,13 @@ export const getTripById = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Trip id is required' });
     }
     const trip = await TripService.getTripById(String(id));
-    if (trip) res.json(trip);
-    else res.status(404).json({ error: 'Trip not found' });
+    if (trip) {
+      return res.json(trip);
+    } else {
+      return res.status(404).json({ error: 'Trip not found' });
+    }
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch trip', details: err });
+    return res.status(500).json({ error: 'Failed to fetch trip', details: err });
   }
 };
 
@@ -42,10 +45,13 @@ export const updateTrip = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Trip id is required' });
     }
     const trip = await TripService.updateTrip(String(id), req.body);
-    if (trip) res.json(trip);
-    else res.status(404).json({ error: 'Trip not found' });
+    if (trip) {
+      return res.json(trip);
+    } else {
+      return res.status(404).json({ error: 'Trip not found' });
+    }
   } catch (err) {
-    res.status(400).json({ error: 'Failed to update trip', details: err });
+    return res.status(400).json({ error: 'Failed to update trip', details: err });
   }
 };
 
@@ -56,10 +62,13 @@ export const deleteTrip = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Trip id is required' });
     }
     const trip = await TripService.deleteTrip(String(id));
-    if (trip) res.json({ success: true });
-    else res.status(404).json({ error: 'Trip not found' });
+    if (trip) {
+      return res.json({ success: true });
+    } else {
+      return res.status(404).json({ error: 'Trip not found' });
+    }
   } catch (err) {
-    res.status(400).json({ error: 'Failed to delete trip', details: err });
+    return res.status(400).json({ error: 'Failed to delete trip', details: err });
   }
 };
 
@@ -70,9 +79,9 @@ export const getTripsByTruck = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Truck id is required' });
     }
     const trips = await TripService.getTripsByTruck(String(truckId));
-    res.json(trips);
+    return res.json(trips);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch trips by truck', details: err });
+    return res.status(500).json({ error: 'Failed to fetch trips by truck', details: err });
   }
 };
 
@@ -83,9 +92,9 @@ export const getTripsByDate = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Date is required' });
     }
     const trips = await TripService.getTripsByDate(new Date(String(date)));
-    res.json(trips);
+    return res.json(trips);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch trips by date', details: err });
+    return res.status(500).json({ error: 'Failed to fetch trips by date', details: err });
   }
 };
 
@@ -96,8 +105,8 @@ export const getTripsByTimeSlot = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Time slot is required' });
     }
     const trips = await TripService.getTripsByTimeSlot(String(timeSlot));
-    res.json(trips);
+    return res.json(trips);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch trips by time slot', details: err });
+    return res.status(500).json({ error: 'Failed to fetch trips by time slot', details: err });
   }
 };
