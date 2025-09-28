@@ -14,6 +14,7 @@ import {
   queryListings,
   getListingById,
   updateListing,
+  deleteListing,
 } from '../services/property.service';
 
 // Create a new property listing
@@ -255,6 +256,45 @@ export const getPropertyStats = async (
     res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to fetch property statistics',
+    });
+  }
+};
+
+// Delete a property listing
+export const deleteProperty = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    
+    if (!id) {
+      res.status(400).json({
+        error: 'Bad Request',
+        message: 'Property ID is required',
+      });
+      return;
+    }
+    
+    const deleted = await deleteListing(id);
+    
+    if (!deleted) {
+      res.status(404).json({
+        error: 'Not Found',
+        message: 'Property not found',
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message: 'Property deleted successfully',
+    });
+  } catch (error) {
+    console.error('Error deleting property:', error);
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to delete property',
     });
   }
 };

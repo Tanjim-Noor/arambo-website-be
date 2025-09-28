@@ -4,6 +4,7 @@ import {
   getProperties,
   getPropertyById,
   updateProperty,
+  deleteProperty,
   healthCheck,
   getPropertyStats,
 } from '../controllers/property.controller';
@@ -21,5 +22,6 @@ router.post('/', createProperty);
 router.get('/', getProperties);
 router.get('/:id', getPropertyById);
 router.put('/:id', updateProperty);
+router.delete('/:id', deleteProperty);
 
 export default router;
