@@ -125,6 +125,8 @@ export const PropertySchema = z.object({
   streetAddress: z.string().max(500, 'Street address must be less than 500 characters').optional(),
   landmark: z.string().max(300, 'Landmark must be less than 300 characters').optional(),
   area: AreaEnum.optional(),
+  longitude: z.number().min(-180, 'Longitude must be between -180 and 180').max(180, 'Longitude must be between -180 and 180').optional(),
+  latitude: z.number().min(-90, 'Latitude must be between -90 and 90').max(90, 'Latitude must be between -90 and 90').optional(),
   listingId: z.string().max(50, 'Listing ID must be less than 50 characters').optional(),
   inventoryStatus: InventoryStatusEnum.optional(),
   tenantType: TenantTypeEnum.optional(),
@@ -213,6 +215,12 @@ export const PropertyFiltersSchema = z.object({
   
   // New filter fields
   area: z.union([AreaEnum, z.array(AreaEnum)]).optional(),
+  longitude: z.string().transform((val) => parseFloat(val)).optional(),
+  latitude: z.string().transform((val) => parseFloat(val)).optional(),
+  minLongitude: z.string().transform((val) => parseFloat(val)).optional(),
+  maxLongitude: z.string().transform((val) => parseFloat(val)).optional(),
+  minLatitude: z.string().transform((val) => parseFloat(val)).optional(),
+  maxLatitude: z.string().transform((val) => parseFloat(val)).optional(),
   inventoryStatus: z.union([InventoryStatusEnum, z.array(InventoryStatusEnum)]).optional(),
   tenantType: z.union([TenantTypeEnum, z.array(TenantTypeEnum)]).optional(),
   propertyCategory: z.union([PropertyCategoryEnum, z.array(PropertyCategoryEnum)]).optional(),

@@ -191,6 +191,36 @@ export class PropertyService {
         query.isVerified = filters.isVerified;
       }
 
+      // Location coordinates filters
+      if (filters.longitude !== undefined) {
+        query.longitude = filters.longitude;
+      }
+
+      if (filters.latitude !== undefined) {
+        query.latitude = filters.latitude;
+      }
+
+      // Coordinate range filters for bounding box searches
+      if (filters.minLongitude !== undefined || filters.maxLongitude !== undefined) {
+        query.longitude = {};
+        if (filters.minLongitude !== undefined) {
+          (query.longitude as any).$gte = filters.minLongitude;
+        }
+        if (filters.maxLongitude !== undefined) {
+          (query.longitude as any).$lte = filters.maxLongitude;
+        }
+      }
+
+      if (filters.minLatitude !== undefined || filters.maxLatitude !== undefined) {
+        query.latitude = {};
+        if (filters.minLatitude !== undefined) {
+          (query.latitude as any).$gte = filters.minLatitude;
+        }
+        if (filters.maxLatitude !== undefined) {
+          (query.latitude as any).$lte = filters.maxLatitude;
+        }
+      }
+
       // Facility filters
       if (filters.cctv !== undefined) {
         query.cctv = filters.cctv;
@@ -475,6 +505,8 @@ export class PropertyService {
       streetAddress: property.streetAddress,
       landmark: property.landmark,
       area: property.area,
+      longitude: property.longitude,
+      latitude: property.latitude,
       listingId: property.listingId,
       inventoryStatus: property.inventoryStatus,
       tenantType: property.tenantType,

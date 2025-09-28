@@ -29,6 +29,8 @@ export interface IProperty extends Document {
   streetAddress?: string;
   landmark?: string;
   area?: Area;
+  longitude?: number;
+  latitude?: number;
   listingId?: string;
   inventoryStatus?: string;
   tenantType?: string;
@@ -258,6 +260,16 @@ const PropertySchema = new Schema<IProperty>({
     },
     index: true
   },
+  longitude: {
+    type: Number,
+    min: [-180, 'Longitude must be between -180 and 180'],
+    max: [180, 'Longitude must be between -180 and 180']
+  },
+  latitude: {
+    type: Number,
+    min: [-90, 'Latitude must be between -90 and 90'],
+    max: [90, 'Latitude must be between -90 and 90']
+  },
   listingId: {
     type: String,
     trim: true,
@@ -462,6 +474,9 @@ PropertySchema.index({ inventoryStatus: 1, tenantType: 1 });
 PropertySchema.index({ rent: 1, bedrooms: 1 });
 PropertySchema.index({ houseId: 1 });
 PropertySchema.index({ listingId: 1 });
+
+// Geospatial indexes for location coordinates
+PropertySchema.index({ longitude: 1, latitude: 1 }); // Compound index for coordinate queries
 
 // Indexes for facility filters
 PropertySchema.index({ cctv: 1 });
