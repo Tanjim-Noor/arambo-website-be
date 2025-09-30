@@ -8,6 +8,7 @@ import {
   healthCheck,
   getPropertyStats,
 } from '../controllers/property.controller';
+import { authenticateToken } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -17,11 +18,13 @@ router.get('/health', healthCheck);
 // Property statistics endpoint
 router.get('/stats', getPropertyStats);
 
-// Property CRUD endpoints
-router.post('/', createProperty);
+// Public property endpoints (no auth required)
 router.get('/', getProperties);
 router.get('/:id', getPropertyById);
-router.put('/:id', updateProperty);
-router.delete('/:id', deleteProperty);
+router.post('/', createProperty);
+
+// Protected property management endpoints (authentication required)
+router.put('/:id', authenticateToken, updateProperty);
+router.delete('/:id', authenticateToken, deleteProperty);
 
 export default router;

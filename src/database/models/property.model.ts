@@ -147,7 +147,6 @@ const PropertySchema = new Schema<IProperty>({
   },
   category: {
     type: String,
-    required: [true, 'Category is required'],
     enum: {
       values: ['Furnished', 'Semi-Furnished', 'Non-Furnished'],
       message: 'Invalid category'
