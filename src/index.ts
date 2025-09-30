@@ -8,6 +8,7 @@ import propertyRoutes from './routes/property.routes';
 import truckRoutes from './routes/truck.routes';
 import tripRoutes from './routes/trip.routes';
 import furnitureRoutes from './routes/furniture.routes';
+import authRoutes from './routes/auth.routes';
 import { errorHandler, notFoundHandler, requestLogger } from './middlewares/error.middleware';
 
 // Create Express application
@@ -47,6 +48,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // API routes
+app.use('/auth', authRoutes);
 app.use('/properties', propertyRoutes);
 app.use('/trucks', truckRoutes);
 app.use('/trips', tripRoutes);
@@ -59,6 +61,13 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     status: 'running',
     endpoints: {
+      auth: {
+        login: 'POST /auth/login',
+        verify: 'GET /auth/verify',
+        status: 'GET /auth/status',
+        logout: 'POST /auth/logout',
+        health: 'GET /auth/health',
+      },
       health: '/properties/health',
       properties: {
         create: 'POST /properties',
