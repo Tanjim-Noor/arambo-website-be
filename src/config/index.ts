@@ -28,6 +28,20 @@ const envSchema = z.object({
 
   REDIS_URL: z.string().optional().default('redis://localhost:6379'),
   CORS_ORIGIN: z.string().optional().default('*'),
+
+  // JWT Authentication
+  JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.string(),
+
+  // Development authentication bypass
+  SKIP_AUTH: z.preprocess(
+    (val) => val === 'true',
+    z.boolean().default(false)
+  ),
+
+  // Admin credentials for seeding
+  ADMIN_USERNAME: z.string(),
+  ADMIN_PASSWORD: z.string(),
 });
 
 // Parse and validate environment variables
@@ -70,7 +84,18 @@ export type Config = z.infer<typeof envSchema> & {
 };
 
 // Export individual config values for convenience
-export const { NODE_ENV, PORT, MONGODB_URI, REDIS_URL, CORS_ORIGIN } = config;
+export const { 
+  NODE_ENV, 
+  PORT, 
+  MONGODB_URI, 
+  REDIS_URL, 
+  CORS_ORIGIN,
+  JWT_SECRET,
+  JWT_EXPIRES_IN,
+  SKIP_AUTH,
+  ADMIN_USERNAME,
+  ADMIN_PASSWORD
+} = config;
 
 // Helper functions
 export const isDevelopment = () => NODE_ENV === 'development';
