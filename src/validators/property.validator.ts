@@ -112,7 +112,7 @@ export const PropertySchema = z.object({
   bedrooms: z.number().min(0, 'Bedrooms cannot be negative').max(50, 'Too many bedrooms'),
   bathroom: z.number().min(0, 'Bathrooms cannot be negative').max(50, 'Too many bathrooms'),
   baranda: z.number().min(0, 'Baranda cannot be negative').default(0),
-  category: CategoryEnum,
+  category: z.string().optional(),
   notes: z.string().max(1000, 'Notes must be less than 1000 characters').optional(),
   firstOwner: z.boolean().default(false),
   lift: z.boolean().default(false),
